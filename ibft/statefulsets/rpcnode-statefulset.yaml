@@ -9,7 +9,7 @@ metadata:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
-name: rpcnode-keys-read-role
+  name: rpcnode-keys-read-role
   namespace: quorum
 rules:
   - apiGroups: [""]
