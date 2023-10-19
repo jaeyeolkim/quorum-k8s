@@ -158,8 +158,7 @@ spec:
               --ws.api admin,eth,debug,miner,net,txpool,personal,web3,istanbul \
               --unlock 0 --allow-insecure-unlock \
               --port 30303
-              --metrics --pprof --pprof.addr 0.0.0.0 --pprof.port 9545 \
-              --password /config/keys/password.txt
+              --metrics --pprof --pprof.addr 0.0.0.0 --pprof.port 9545
           livenessProbe:
             httpGet:
               path: /
