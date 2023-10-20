@@ -63,7 +63,7 @@ async function createContract(
     contractByteCode,
     wallet
   );
-  const contract = await factory.deploy({ gasLimit: 2000000 });
+  const contract = await factory.deploy({ gasLimit: 0x2000000 });
   // The contract is NOT deployed yet; we must wait until it is mined
   const deployed = await contract.waitForDeployment();
   //The contract is deployed now
