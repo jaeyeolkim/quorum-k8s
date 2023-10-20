@@ -63,7 +63,7 @@ async function createContract(
     contractByteCode,
     wallet
   );
-  const gasLimit = ethers.BigNumber.from("1e18");
+  const gasLimit = BigInt("2000000");
   const contract = await factory.deploy({ gasLimit: gasLimit });
   // The contract is NOT deployed yet; we must wait until it is mined
   const deployed = await contract.waitForDeployment();
