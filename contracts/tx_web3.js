@@ -3,7 +3,7 @@ const fs = require("fs-extra");
 const { quorum } = require("./keys.js");
 const host = quorum.rpcnode.url;
 const address = quorum.rpcnode.accountAddress;
-const Web3 = require("web3");
+const { Web3 } = require("web3");
 
 // read in the contracts
 const contractJsonPath = path.resolve("./", "SimpleStorage.json");
