@@ -2,9 +2,9 @@ module.exports = {
   quorum: {
     rpcnode: {
       url: "http://10.233.42.13:8545",
-      accountAddress: "0x11d0dc20bcead1e3cfef60e5b0af2d99d9534d0e",
+      accountAddress: "0x259240f2bdd7e2f79bd2f8c9791f247531147a11",
       accountPrivateKey:
-        "0x69cd36c00f8413a26a5b42ded6be63fd0630c871433cd34751917cbdf6cc3344",
+        "0xa132ad30748bd38aa0f4b1229b6fc4c6544bde42cc9c5034eb4b764f2ae0340e",
     },
   },
 };
