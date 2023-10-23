@@ -36,3 +36,9 @@ async function main() {
     })
     .catch(console.error);
 }
+
+if (require.main === module) {
+  main();
+}
+
+module.exports = exports = main;
