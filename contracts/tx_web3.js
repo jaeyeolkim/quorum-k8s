@@ -8,7 +8,7 @@ const address = quorum.rpcnode.accountAddress;
 const contractJsonPath = path.resolve("./", "SimpleStorage.json");
 const contractJson = JSON.parse(fs.readFileSync(contractJsonPath));
 const contractAbi = contractJson.abi;
-const contractBytecode = contractJson.bytecode;
+const contractByteCode = contractJson.bytecode;
 
 async function createContract(
   host,
