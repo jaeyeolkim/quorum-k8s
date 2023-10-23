@@ -33,12 +33,6 @@ data:
         "berlinBlock": 0,
         "londonBlock": 0,
         "isQuorum": true,
-        "maxCodeSizeConfig": [
-          {
-            "block": 0,
-            "size": 64
-          }
-        ],
         "txnSizeLimit": 64,
         "qbft": {
           "policy": 0,
