@@ -8,9 +8,9 @@ metadata:
 data:
   static-nodes.json: |-
     [
-      "enode://3779cf9d504df7b24055bd93149c63e1b738497316fcf328518e7cf5e714c8ba2adc43468bd17b4077949775e6e00e36cc4696d33c70debdb7a7b1fad1d40bf2@quorum-rpcnode.quorum.svc.cluster.local:30303?discport=0&raftport=53000",
-      "enode://563247b52d40abf8971dedf5db41c4c1bdee4a321270fe29733ef08354e8be3b2da15a97679cbedd61e52d9d3aa15be168fd50fbdb16ec46b319dae1dbe530d8@quorum-validator1.quorum.svc.cluster.local:30303?discport=0&raftport=53000",
-      "enode://7843411a2b403320d555c8e4a7cf987df97e9f59581576f7e2b8c3f2eeb2787d159578e8bdee21f5091cf956efe6fbc0a550092207b0aa1255b6925b3b74aaa6@quorum-validator2.quorum.svc.cluster.local:30303?discport=0&raftport=53000",
-      "enode://7abeddcebde5019fdb6c7073546410d97ebde9be19f137c8b6c1e01eed15b6e680dfda91ef8bc29ff393712b33d0e3cc3976cbe324d0aee386eee28f246f6410@quorum-validator3.quorum.svc.cluster.local:30303?discport=0&raftport=53000",
-      "enode://c3222b935ad94db3524ac547eeb6ce9a0a3703ea4b7fccfea13b0586dbe57a4351ccdd883341e1cf8e9d7a5eb6d41288ef83defa83c00e8a8e7fc8d9e2f80617@quorum-validator4.quorum.svc.cluster.local:30303?discport=0&raftport=53000"
+      "enode://3779cf9d504df7b24055bd93149c63e1b738497316fcf328518e7cf5e714c8ba2adc43468bd17b4077949775e6e00e36cc4696d33c70debdb7a7b1fad1d40bf2@rpcnode-0.quorum-rpcnode.quorum.svc.cluster.local:30303?discport=0&raftport=53000",
+      "enode://563247b52d40abf8971dedf5db41c4c1bdee4a321270fe29733ef08354e8be3b2da15a97679cbedd61e52d9d3aa15be168fd50fbdb16ec46b319dae1dbe530d8@validator1-0.quorum-validator1.quorum.svc.cluster.local:30303?discport=0&raftport=53000",
+      "enode://7843411a2b403320d555c8e4a7cf987df97e9f59581576f7e2b8c3f2eeb2787d159578e8bdee21f5091cf956efe6fbc0a550092207b0aa1255b6925b3b74aaa6@validator2-0.quorum-validator2.quorum.svc.cluster.local:30303?discport=0&raftport=53000",
+      "enode://7abeddcebde5019fdb6c7073546410d97ebde9be19f137c8b6c1e01eed15b6e680dfda91ef8bc29ff393712b33d0e3cc3976cbe324d0aee386eee28f246f6410@validator3-0.quorum-validator3.quorum.svc.cluster.local:30303?discport=0&raftport=53000",
+      "enode://c3222b935ad94db3524ac547eeb6ce9a0a3703ea4b7fccfea13b0586dbe57a4351ccdd883341e1cf8e9d7a5eb6d41288ef83defa83c00e8a8e7fc8d9e2f80617@validator4-0.quorum-validator4.quorum.svc.cluster.local:30303?discport=0&raftport=53000"
     ]
