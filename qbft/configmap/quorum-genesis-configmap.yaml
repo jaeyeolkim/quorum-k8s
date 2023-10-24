@@ -11,7 +11,7 @@ data:
       "nonce": "0x0",
       "timestamp": "0x58ee40ba",
       "extraData": "0xf88fa00000000000000000000000000000000000000000000000000000000000000000f86994dcfe72d60edfec964e3d1c111fea54af0b5f70919408ce71336b956b2dd20038eb86cafae801edf9739485e98361bb429cd852aa31fd3cd9aa7e52eabd69947755070222575117e89f60ba45ac7da3d170efc3943a43035945c3023e5ffabda6eea1857b011ad790c080c0",
-      "gasLimit": "0xFFFFFF",
+      "gasLimit": "0x47b760",
       "gasUsed": "0x0",
       "number": "0x0",
       "difficulty": "0x1",
