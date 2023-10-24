@@ -24,12 +24,16 @@ async function createContract(
     .deploy({ data: contractByteCode, arguments: [contractInit] })
     .encodeABI();
 
-  console.log(contractData);
-  const ci = await web3.eth.sendTransaction({
-    data: contractData,
-    gas: gasLimit,
-    from: fromAddress,
-  });
+  const ci = await web3.eth
+    .sendTransaction({
+      data: contractData,
+      gas: gasLimit,
+      from: fromAddress,
+    })
+    .on("error", (error) => {
+      console.error("deploy error!! : ", error);
+    });
+  console.log(ci);
   /*
   const contractInstance = new web3.eth.Contract(contractAbi);
   const ci = await contractInstance
