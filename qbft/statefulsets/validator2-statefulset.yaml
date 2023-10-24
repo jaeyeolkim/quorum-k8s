@@ -143,7 +143,7 @@ spec:
               cp /config/keys/accountAddress /data/keystore/accountAddress
               cp /config/keys/accountKeystore /data/keystore/accountKeystore
               cp /config/keys/accountPrivatekey /data/keystore/accountPrivateKey
-              cp /config/keys/password.txt /data/keystore/accountPassword
+              cp /config/keys/accountPassword /data/keystore/accountPassword
               cp /config/keys/address /data/keystore/address
               cp /config/keys/nodekey /data/keystore/nodekey
               cp /config/keys/nodekey.pub /data/keystore/nodekey.pub
@@ -162,7 +162,7 @@ spec:
               --unlock ${ADDRESS} --allow-insecure-unlock \
               --port 30303 \
               --metrics --pprof --pprof.addr 0.0.0.0 --pprof.port 9545 \
-              --password /config/keys/password.txt
+              --password /config/keys/accountPassword
           livenessProbe:
             httpGet:
               path: /
