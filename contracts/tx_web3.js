@@ -18,7 +18,7 @@ async function createContract(
   contractInit,
   fromAddress
 ) {
-  const web3 = new Web3(new Web3.providers.HttpProvider(host));
+  const web3 = new Web3(host);
   const contractInstance = new web3.eth.Contract(contractAbi);
   const ci = await contractInstance
     .deploy({ data: "0x" + contractByteCode, arguments: [contractInit] })
