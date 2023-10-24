@@ -19,6 +19,17 @@ async function createContract(
   fromAddress
 ) {
   const web3 = new Web3(host);
+  const gasLimit = 3000000; // Set an appropriate gas limit
+  const contractData = new web3.eth.Contract(contractAbi)
+    .deploy({ data: contractByteCode, arguments: [contractInit] })
+    .encodeABI();
+
+  const ci = await web3.eth.sendTransaction({
+    data: contractData,
+    gas: gasLimit,
+    from: fromAddress,
+  });
+  /*
   const contractInstance = new web3.eth.Contract(contractAbi);
   const ci = await contractInstance
     .deploy({ data: "0x" + contractByteCode, arguments: [contractInit] })
@@ -29,6 +40,7 @@ async function createContract(
     .on("error", (error) => {
       console.error("deploy error!! : ", error);
     });
+    */
   return ci;
 }
 
