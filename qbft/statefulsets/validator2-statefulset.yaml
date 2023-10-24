@@ -140,7 +140,8 @@ spec:
               cp /config/permissions-nodes/*.json /data/
               cp /config/quorum/genesis.json /data/
               geth --datadir=/data init /config/quorum/genesis.json
-              cp /config/keys/accountkey /data/keystore/key
+              cp /config/keys/accountkey /data/keystore/accountKeystore
+              cp /config/keys/privatekey /data/keystore/accountPrivateKey
               cp /config/keys/nodekey /data/geth/nodekey
               export PRIVATE_CONFIG=ignore
               export ADDRESS=$(grep -o '"address": *"[^"]*"' /config/keys/accountkey | grep -o '"[^"]*"$' | sed 's/"//g')
