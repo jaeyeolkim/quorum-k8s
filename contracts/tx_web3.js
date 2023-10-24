@@ -23,9 +23,12 @@ async function createContract(
   console.log("contractInstance: ", contractInstance);
   const ci = await contractInstance
     .deploy({ data: "0x" + contractByteCode, arguments: [contractInit] })
-    .send({ from: fromAddress, gasLimit: "0x24A22" })
+    .send({ from: fromAddress, gasLimit: "0x24A22", gas: "0x24A22" })
     .on("transactionHash", function (hash) {
       console.log("The transaction hash is: " + hash);
+    })
+    .on("error", (error) => {
+      console.error("deploy error!! : ", error);
     });
   return ci;
 }
