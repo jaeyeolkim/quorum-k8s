@@ -142,6 +142,7 @@ spec:
               geth --datadir=/data init /config/quorum/genesis.json
               cp /config/keys/accountkey /data/keystore/key
               cp /config/keys/nodekey /data/geth/nodekey
+              export PRIVATE_CONFIG=ignore
               export ADDRESS=$(grep -o '"address": *"[^"]*"' /config/keys/accountkey | grep -o '"[^"]*"$' | sed 's/"//g')
 
               geth \
