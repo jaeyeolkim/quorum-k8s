@@ -24,6 +24,7 @@ async function createContract(
     .deploy({ data: contractByteCode, arguments: [contractInit] })
     .encodeABI();
 
+  console.log(contractData);
   const ci = await web3.eth.sendTransaction({
     data: contractData,
     gas: gasLimit,
