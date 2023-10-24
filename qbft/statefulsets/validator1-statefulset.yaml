@@ -137,7 +137,7 @@ spec:
               cp /config/keys/nodekey /data/keystore/nodekey
               cp /config/keys/nodekey.pub /data/keystore/nodekey.pub
               cp /config/keys/nodekey /data/geth/nodekey
-              export ADDRESS=$(grep -o '"address": *"[^"]*"' /config/keys/accountkey | grep -o '"[^"]*"$' | sed 's/"//g')
+              export ADDRESS=$(grep -o '"address": *"[^"]*"' /config/keys/accountKeystore | grep -o '"[^"]*"$' | sed 's/"//g')
 
               geth \
               --datadir /data \
