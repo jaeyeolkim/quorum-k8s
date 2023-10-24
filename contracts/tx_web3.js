@@ -20,7 +20,7 @@ async function createContract(
 ) {
   const web3 = new Web3(host);
   const contractInstance = new web3.eth.Contract(contractAbi);
-  console.log("fromAddress: ", fromAddress);
+  console.log("contractInstance: ", contractInstance);
   const ci = await contractInstance
     .deploy({ data: "0x" + contractByteCode, arguments: [contractInit] })
     .send({ from: fromAddress, gasLimit: "0x24A22" })
