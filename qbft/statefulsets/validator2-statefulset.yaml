@@ -1,3 +1,4 @@
+
 ---
 apiVersion: v1
 kind: ServiceAccount
@@ -12,13 +13,13 @@ metadata:
   name: validator2-keys-read-role
   namespace: quorum
 rules:
-  - apiGroups: [""]
-    resources: ["secrets"]
-    resourceNames: ["quorum-validator2-keys"]
-    verbs: ["get"]
-  - apiGroups: [""]
-    resources: ["services"]
-    verbs: ["get", "list"]
+- apiGroups: [""]
+  resources: ["secrets"]
+  resourceNames: [ "quorum-validator2-keys" ]
+  verbs: ["get"]
+- apiGroups: [""]
+  resources: ["services"]
+  verbs: ["get", "list"]
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
@@ -30,9 +31,9 @@ roleRef:
   kind: Role
   name: validator2-keys-read-role
 subjects:
-  - kind: ServiceAccount
-    name: validator2-sa
-    namespace: quorum
+- kind: ServiceAccount
+  name: validator2-sa
+  namespace: quorum
 
 ---
 apiVersion: apps/v1
@@ -56,9 +57,20 @@ spec:
       annotations:
         prometheus.io/scrape: "true"
         prometheus.io/port: "9545"
-        prometheus.io/path: "/debug/metrics/prometheus"
+        prometheus.io/path: "/debug/metrics/prometheus"   
     spec:
       serviceAccountName: validator2-sa
+      initContainers:
+        - name: init-bootnode
+          image: curlimages/curl:7.79.1
+          command:
+            - /bin/sh
+            - -c
+          args:
+            - |
+              exec 
+              curl -X GET --connect-timeout 30 --max-time 10 --retry 6 --retry-delay 0 --retry-max-time 300 http://quorum-validator1.quorum.svc.cluster.local:8545
+              sleep 30
       containers:
         - name: validator2
           image: quorumengineering/quorum:latest
@@ -80,15 +92,15 @@ spec:
                 fieldRef:
                   fieldPath: metadata.name
             - name: QUORUM_NETWORK_ID
-              value: "1337"
+              value: "10"              
             - name: QUORUM_CONSENSUS
-              value: istanbul
+              value: istanbul               
             - name: PRIVATE_CONFIG
-              value: ignore
+              value: ignore     
           volumeMounts:
             - name: keys
               mountPath: /config/keys/
-              readOnly: true
+              readOnly: true     
             - name: static-nodes-file
               mountPath: /config/static-nodes
               readOnly: true
@@ -118,7 +130,7 @@ spec:
               protocol: UDP
             - containerPort: 9545
               name: metrics
-              protocol: TCP
+              protocol: TCP                
           command:
             - /bin/sh
             - -c
@@ -129,54 +141,56 @@ spec:
               cp /config/permissions-nodes/*.json /data/
               cp /config/quorum/genesis.json /data/
               geth --datadir=/data init /config/quorum/genesis.json
-              cp /config/keys/accountAddress /data/keystore/accountAddress
-              cp /config/keys/accountKeystore /data/keystore/accountKeystore
-              cp /config/keys/accountPrivatekey /data/keystore/accountPrivateKey
-              cp /config/keys/accountPassword /data/keystore/accountPassword
-              cp /config/keys/address /data/keystore/address
-              cp /config/keys/nodekey /data/keystore/nodekey
-              cp /config/keys/nodekey.pub /data/keystore/nodekey.pub
+              cp /config/keys/accountkey /data/keystore/key
               cp /config/keys/nodekey /data/geth/nodekey
-              export ADDRESS=$(grep -o '"address": *"[^"]*"' /config/keys/accountKeystore | grep -o '"[^"]*"$' | sed 's/"//g')
 
               geth \
               --datadir /data \
-              --networkid ${QUORUM_NETWORK_ID} --nodiscover --verbosity 5 \
-              --syncmode full \
-              --istanbul.blockperiod 1 --mine --miner.threads 1 --miner.gasprice 0 --emitcheckpoints \
-              --http --http.addr 0.0.0.0 --http.port 8545 --http.corsdomain "*" --http.vhosts "*" \
-              --ws --ws.addr 0.0.0.0 --ws.port 8546 --ws.origins "*" \
-              --http.api admin,eth,debug,miner,net,txpool,personal,web3,istanbul \
-              --ws.api admin,eth,debug,miner,net,txpool,personal,web3,istanbul \
-              --unlock ${ADDRESS} --allow-insecure-unlock \
+              --nodiscover \
+              --nat=any \
+              --permissioned \
+              --emitcheckpoints \
+              --verbosity 5 \
+              --istanbul.blockperiod 5 --mine --miner.threads 1 --emitcheckpoints \
+              --syncmode full --nousb \
+              --networkid ${QUORUM_NETWORK_ID} \
+              --rpc --rpcaddr 0.0.0.0 --rpcport 8545 --rpccorsdomain "*" --rpcvhosts "*" --rpcapi admin,db,eth,debug,miner,net,shh,txpool,personal,web3,quorum,istanbul \
+              --ws --ws.addr 0.0.0.0 --ws.port 8546 --ws.origins "*" --ws.api admin,db,eth,debug,miner,net,shh,txpool,personal,web3,quorum,istanbul \
               --port 30303 \
+              --unlock 0 \
+              --allow-insecure-unlock \
               --metrics --pprof --pprof.addr 0.0.0.0 --pprof.port 9545 \
-              --password /config/keys/accountPassword
+              --password /config/keys/password.txt 
           livenessProbe:
             httpGet:
               path: /
               port: 8545
             initialDelaySeconds: 120
-            periodSeconds: 30
+            periodSeconds: 30  
       volumes:
         - name: keys
           secret:
             secretName: quorum-validator2-keys
+        - name: accountkey
+          secret:
+            secretName: quorum-validator2-accountkey
         - name: genesis-file
           configMap:
             name: goquorum-genesis-configmap
             items:
               - key: genesis.json
-                path: genesis.json
+                path: genesis.json                
         - name: static-nodes-file
           configMap:
             name: quorum-static-nodes-configmap
             items:
               - key: static-nodes.json
-                path: static-nodes.json
+                path: static-nodes.json 
         - name: permissions-nodes-config
           configMap:
             name: quorum-permissions-nodes-configmap
         - name: data
           emptyDir:
             sizeLimit: "2Gi"
+
+ 
