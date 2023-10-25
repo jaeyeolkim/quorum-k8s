@@ -59,17 +59,6 @@ spec:
         prometheus.io/path: "/debug/metrics/prometheus"
     spec:
       serviceAccountName: validator2-sa
-      initContainers:
-        - name: init-bootnode
-          image: curlimages/curl:7.79.1
-          command:
-            - /bin/sh
-            - -c
-          args:
-            - |
-              exec 
-              curl -X GET --connect-timeout 30 --max-time 10 --retry 6 --retry-delay 0 --retry-max-time 300 http://quorum-validator1.quorum.svc.cluster.local:8545
-              sleep 30
       containers:
         - name: validator2
           image: quorumengineering/quorum:latest
@@ -173,9 +162,6 @@ spec:
         - name: keys
           secret:
             secretName: quorum-validator2-keys
-        - name: accountkey
-          secret:
-            secretName: quorum-validator2-accountkey
         - name: genesis-file
           configMap:
             name: goquorum-genesis-configmap

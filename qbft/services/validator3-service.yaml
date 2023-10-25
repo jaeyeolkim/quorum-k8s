@@ -1,14 +1,14 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: quorum-rpcnode
+  name: quorum-validator3
   labels:
-    app: rpcnode
+    app: validator3
   namespace: quorum
 spec:
   type: ClusterIP
   selector:
-    app: rpcnode
+    app: validator3
   ports:
     - port: 30303
       targetPort: 30303
