@@ -27,20 +27,14 @@ data:
         "eip158Block": 0,
         "byzantiumBlock": 0,
         "constantinopleBlock": 0,
-        "petersburgBlock": 0,
-        "istanbulBlock": 0,
-        "muirglacierblock": 0,
-        "berlinBlock": 0,
-        "londonBlock": 0,
-        "isQuorum": true,
-        "txnSizeLimit": 64,
-        "ibft": {
-          "policy": 0,
+        "istanbul": {
           "epoch": 30000,
-          "ceil2Nby3Block": 0,
-          "blockperiodseconds": 1,
-          "requesttimeoutseconds": 10
-        }
+          "policy": 0,
+          "ceil2Nby3Block": 0
+        },
+        "txnSizeLimit": 64,
+        "maxCodeSize": 0,
+        "isQuorum": true
       },
       "alloc": {
         "0x572aa4f2fb1121ad1eb666af6c05b7caaa4cc5a9": {
