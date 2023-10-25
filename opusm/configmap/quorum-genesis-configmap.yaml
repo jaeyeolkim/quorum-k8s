@@ -1,0 +1,62 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: goquorum-genesis-configmap
+  labels:
+    app: goquorum-genesis-configmap
+  namespace: quorum
+data:
+  genesis.json: |-
+    {
+      "nonce": "0x0",
+      "timestamp": "0x58ee40ba",
+      "extraData": "0x0000000000000000000000000000000000000000000000000000000000000000f86df86994d859103aace7b69840e87190d368f8378f9fd39a94c0278e95341d7484848873532dfc7a9fc7d07ed99443a6613a21552801fb9822f519b37380e03b698e9405d5bffb4437b40ade4baab95f1fa390ecd076b994241b34023f113991a145d37c4292bb4bd709125d80c0",
+      "gasLimit": "0xFFFFFF",
+      "gasUsed": "0x0",
+      "number": "0x0",
+      "difficulty": "0x1",
+      "coinbase": "0x0000000000000000000000000000000000000000",
+      "mixHash": "0x63746963616c2062797a616e74696e65206661756c7420746f6c6572616e6365",
+      "parentHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "config": {
+        "chainId": 1337,
+        "homesteadBlock": 0,
+        "eip150Block": 0,
+        "eip150Hash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "eip155Block": 0,
+        "eip158Block": 0,
+        "byzantiumBlock": 0,
+        "constantinopleBlock": 0,
+        "petersburgBlock": 0,
+        "istanbulBlock": 0,
+        "muirglacierblock": 0,
+        "berlinBlock": 0,
+        "londonBlock": 0,
+        "isQuorum": true,
+        "txnSizeLimit": 64,
+        "ibft": {
+          "policy": 0,
+          "epoch": 30000,
+          "ceil2Nby3Block": 0,
+          "blockperiodseconds": 1,
+          "requesttimeoutseconds": 10
+        }
+      },
+      "alloc": {
+        "0x572aa4f2fb1121ad1eb666af6c05b7caaa4cc5a9": {
+          "balance": "1000000000000000000000000000"
+        },
+        "0xc9b6ed00b55a5cfa1a29609dc107131e69ee798c": {
+          "balance": "1000000000000000000000000000"
+        },
+        "0xbe9563810013d780537969fc8cfa6709769a9879": {
+          "balance": "1000000000000000000000000000"
+        },
+        "0x2ea69a626d01f99d56c343863757f89894a69ae8": {
+          "balance": "1000000000000000000000000000"
+        },
+        "0xf401b44b88b27c89c646070a5f6d81609bc6ae1d": {
+          "balance": "1000000000000000000000000000"
+        }
+      }
+    }
