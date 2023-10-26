@@ -8,42 +8,32 @@ metadata:
 data:
   genesis.json: |-
     {
-      "nonce": "0x0",
-      "timestamp": "0x58ee40ba",
-      "extraData": "0xf88fa00000000000000000000000000000000000000000000000000000000000000000f86994dcfe72d60edfec964e3d1c111fea54af0b5f70919408ce71336b956b2dd20038eb86cafae801edf9739485e98361bb429cd852aa31fd3cd9aa7e52eabd69947755070222575117e89f60ba45ac7da3d170efc3943a43035945c3023e5ffabda6eea1857b011ad790c080c0",
-      "gasLimit": "0x47b760",
-      "gasUsed": "0x0",
-      "number": "0x0",
-      "difficulty": "0x1",
-      "coinbase": "0x0000000000000000000000000000000000000000",
-      "mixHash": "0x63746963616c2062797a616e74696e65206661756c7420746f6c6572616e6365",
-      "parentHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
       "config": {
         "chainId": 1337,
         "homesteadBlock": 0,
         "eip150Block": 0,
-        "eip150Hash": "0x0000000000000000000000000000000000000000000000000000000000000000",
         "eip155Block": 0,
         "eip158Block": 0,
         "byzantiumBlock": 0,
         "constantinopleBlock": 0,
         "petersburgBlock": 0,
         "istanbulBlock": 0,
-        "muirglacierblock": 0,
         "berlinBlock": 0,
-        "londonBlock": 0,
-        "isQuorum": true,
-        "txnSizeLimit": 64,
-        "qbft": {
-          "policy": 0,
-          "epoch": 30000,
-          "ceil2Nby3Block": 0,
-          "testQBFTBlock": 0,
-          "blockperiodseconds": 1,
-          "emptyblockperiodseconds": 60,
-          "requesttimeoutseconds": 10
+        "clique": {
+          "period": 5,
+          "epoch": 30000
         }
       },
+      "nonce": "0x0",
+      "timestamp": "0x5f1663fc",
+      "extraData": "0x0000000000000000000000000000000000000000000000000000000000000000259240f2bdd7e2f79bd2f8c9791f247531147a11465c7fa34f2e3fb7e4aeeb1dcdec5781604fa28ad2078fded471b07f686fd3e74aab2453f5b0e171d402c91a863c8db72bf6fcbf1b50a0af82855f4656ffbf16d2825422358a89186b812c5be11c5d630000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "gasLimit": "0xe0000000",
+      "difficulty": "0x1",
+      "mixHash": "0x63746963616c2062797a616e74696e65206661756c7420746f6c6572616e6365",
+      "coinbase": "0x0000000000000000000000000000000000000000",
+      "number": "0x0",
+      "gasUsed": "0x0",
+      "parentHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
       "alloc": {
         "0x259240f2bdd7e2f79bd2f8c9791f247531147a11": {
           "balance": "1000000000000000000000000000"
