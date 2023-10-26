@@ -8,8 +8,8 @@ metadata:
 data:
   static-nodes.json: |-
     [
-      "enode://8208a3f344695d44e9cf2c023683cbea7b9343e2f70a5e804bd2c93858e945f8f91439eef96a4ab6c47ff06637d6fbe6472f96de1655a1bee57ea896654f3a22@validator1-0.quorum-validator1.quorum.svc.cluster.local:30303?discport=0",
-      "enode://b9050e002aa42464e6b07c811a1f9dfec01249af03f67b753e8415420649b184447bb2a784863ccbf327ad9e31aaba803464979dfe6a7facc669151a5fa6ad1b@validator2-0.quorum-validator2.quorum.svc.cluster.local:30303?discport=0",
-      "enode://59cf0c623c582fa9b19bdf70fb6bade07f4ae32218dd4d1c7e2c7e65acf87da45cf2ab55d16d27360aafef17622c37c09db60d7680ebcc17b78867f4c05bcaa4@validator3-0.quorum-validator3.quorum.svc.cluster.local:30303?discport=0",
-      "enode://2fd5b5b6ad529f55b71602026d1849d0036f06482368b5812fa793014195d3571b0840dbc4175617de2a12db8f1222c012420d471ae5c0d982118625cae58868@validator4-0.quorum-validator4.quorum.svc.cluster.local:30303?discport=0"
+      "enode://7828a85d326f614cbd16bd1848362b3bb81328c5ebc06b18112565bf602d894b1b045a535c040fac82aa9f61b2b9b579779184539bb2aeb3e6d4b8f89739f8d3@validator1-0.quorum-validator1.quorum.svc.cluster.local:30303?discport=0",
+      "enode://4ace362949e5e57b96b24c763b337f8853f84344832d3e35888fdf772d79f64d1e62cdead53e86693ea04a27ca4948b019c77b1fc846f22c2b5e2d9b7c0ad837@validator2-0.quorum-validator2.quorum.svc.cluster.local:30303?discport=0",
+      "enode://52a0fe5937139ff5850666c8b6a962482a9e82df6fddd5e0fb184f19ae846387ea703c509b07f8a6bc9cd2221a25b56b9a5bdf6eb6808c2beefa9a7a82f8344d@validator3-0.quorum-validator3.quorum.svc.cluster.local:30303?discport=0",
+      "enode://66ecaec48b78eace035f95fe4fdfef57aaa7785e611b2968c2eb31b4c5d25f1a0a10285c02ddeb5e64d9d38d2e27b59c596d0bac3b160afb0cfd4bee84cbc5e7@validator4-0.quorum-validator4.quorum.svc.cluster.local:30303?discport=0"
     ]
