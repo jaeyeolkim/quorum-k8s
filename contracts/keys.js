@@ -7,9 +7,10 @@ module.exports = {
         "0xa132ad30748bd38aa0f4b1229b6fc4c6544bde42cc9c5034eb4b764f2ae0340e",
     },
     validator: {
-      url: "http://10.233.16.119:8545",
+      url: "http://10.233.37.237:8545",
+      accountAddress: "0x7507962061774aaffe96572bc5f9deb738d40584",
       accountPrivateKey:
-        "0x8f2a55949038a9610f50fb23b5883af3b4ecb3c3bb792cbcefbd1542c692be63",
+        "0x47a6bef9422cc98597dcb0214c62597d833c4fba8494ebefbb649ea1398b0377",
     },
   },
 };
