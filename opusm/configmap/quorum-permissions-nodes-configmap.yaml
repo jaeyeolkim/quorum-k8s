@@ -8,10 +8,11 @@ metadata:
 data:
   permissioned-nodes.json: |-
     [
-      "enode://7828a85d326f614cbd16bd1848362b3bb81328c5ebc06b18112565bf602d894b1b045a535c040fac82aa9f61b2b9b579779184539bb2aeb3e6d4b8f89739f8d3@validator1-0.quorum-validator1.quorum.svc.cluster.local:30303?discport=0",
-      "enode://4ace362949e5e57b96b24c763b337f8853f84344832d3e35888fdf772d79f64d1e62cdead53e86693ea04a27ca4948b019c77b1fc846f22c2b5e2d9b7c0ad837@validator2-0.quorum-validator2.quorum.svc.cluster.local:30303?discport=0",
-      "enode://52a0fe5937139ff5850666c8b6a962482a9e82df6fddd5e0fb184f19ae846387ea703c509b07f8a6bc9cd2221a25b56b9a5bdf6eb6808c2beefa9a7a82f8344d@validator3-0.quorum-validator3.quorum.svc.cluster.local:30303?discport=0",
-      "enode://66ecaec48b78eace035f95fe4fdfef57aaa7785e611b2968c2eb31b4c5d25f1a0a10285c02ddeb5e64d9d38d2e27b59c596d0bac3b160afb0cfd4bee84cbc5e7@validator4-0.quorum-validator4.quorum.svc.cluster.local:30303?discport=0"
+      "enode://ebcdf4feaf521331f1781f79c2f5bae9efecd8a90728499ba6f84045f4e05927655f5ab3dd4407830efb583aa55d25656dabdbb753cecccf9ea6b65afed7db2e@validator1-0.quorum-validator1.quorum.svc.cluster.local:30303?discport=0",
+      "enode://dfcd7e4e4071234091c26ca0942dce8413c6c1f809e24d957a3e00c2d4f5a6113b442e7a269656c8350b23f0f605865c5738e5a6b545600a688af872646fb92d@validator2-0.quorum-validator2.quorum.svc.cluster.local:30303?discport=0",
+      "enode://30e146af5cfaf8cba9ce1f72d529ea0d5db20126d0019acf5dfd0bdd7ad5a5ecc0a5dec45219200c5ea27104363e3f710d942877b8d7b32ab5c826dd90b5d6ca@validator3-0.quorum-validator3.quorum.svc.cluster.local:30303?discport=0",
+      "enode://d7ae76ea6c3e9df17ad441438d1c405177f005c348b248bac4cbc4e7511f99fd668e2a4cf3eb737547b09422b5eef1a14e1c14df48c6417762c4bad688dc4385@validator4-0.quorum-validator4.quorum.svc.cluster.local:30303?discport=0",
+      "enode://d41cfcb9b8e9158bbbaab9897e27799367edaf1b7b8d86852cf9f5ae8fa1e3df36176f38574d8f99463719c50db3e559328a9050c3538c665de58348839fe111@validator5-0.quorum-validator5.quorum.svc.cluster.local:30303?discport=0"
     ]
 
   disallowed-nodes.json: |-
