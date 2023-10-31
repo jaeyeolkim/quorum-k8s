@@ -48,7 +48,7 @@ node:
     keysPath: "/keys"
     genesisFilePath: "/etc/genesis/genesis.json"
     customLabels: {}
-    networkId: 10
+    networkId: 1337
     replicaCount: 1
     account:
       unlock: 0
