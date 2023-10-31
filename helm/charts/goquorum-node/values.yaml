@@ -58,7 +58,7 @@ node:
       verbosity: 5
     miner:
       threads: 1
-      blockPeriod: 5
+      blockPeriod: 1
     p2p:
       enabled: true
       addr: "0.0.0.0"
