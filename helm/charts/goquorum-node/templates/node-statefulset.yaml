@@ -269,7 +269,7 @@ spec:
 
             geth \
             --datadir {{ .Values.node.goquorum.dataPath }} \
-            --nodiscover --ipcdisable \
+            --nodiscover \
             --nat extip:$POD_IP \
             --verbosity {{ .Values.node.goquorum.log.verbosity }} \
             --istanbul.blockperiod {{ .Values.node.goquorum.miner.blockPeriod }} --mine --miner.threads {{ .Values.node.goquorum.miner.threads }} --miner.gasprice 0 --emitcheckpoints \
