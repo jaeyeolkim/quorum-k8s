@@ -12,7 +12,7 @@ resources:
 # This contains the quorum-dev-quickstart test accounts but can be changed to the generated member accounts or your own choice
 explorerConfig: |
   {
-  "algorithm": "qbft",
+  "algorithm": "clique",
   "nodes": [{
       "name": "validator1",
       "client": "goquorum",
