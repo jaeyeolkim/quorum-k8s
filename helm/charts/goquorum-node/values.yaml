@@ -52,7 +52,7 @@ node:
     replicaCount: 1
     account:
       unlock: 0
-      password: "password"
+      password: ""
       passwordPath: "/keys/accountPassword"
     log:
       verbosity: 5

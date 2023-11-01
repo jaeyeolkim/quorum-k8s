@@ -42,7 +42,7 @@ rawGenesisConfig:
     nodes: # refers to validators/signers
       generate: true
       count: 5
-    accountPassword: "password"
+    accountPassword: ""
 
 image:
   repository: consensys/quorum-k8s-hooks
