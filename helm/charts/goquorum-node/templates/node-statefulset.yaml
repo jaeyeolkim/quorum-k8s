@@ -264,6 +264,7 @@ spec:
             geth --datadir={{ .Values.node.goquorum.dataPath }} init {{ .Values.node.goquorum.genesisFilePath }}
             cp {{ .Values.node.goquorum.keysPath }}/nodekey {{ .Values.node.goquorum.dataPath }}/geth/nodekey
             cp /config/static/static-nodes.json {{ .Values.node.goquorum.dataPath }}/geth/static-nodes.json
+            cp /config/static/static-nodes.json {{ .Values.node.goquorum.dataPath }}/geth/permissions-nodes.json
             mkdir -p {{ .Values.node.goquorum.dataPath }}/keystore/
             cp {{ .Values.node.goquorum.keysPath }}/accountKeystore {{ .Values.node.goquorum.dataPath }}/keystore/key;
 
@@ -275,17 +276,16 @@ spec:
             --emitcheckpoints \
             --verbosity {{ .Values.node.goquorum.log.verbosity }} \
             --istanbul.blockperiod {{ .Values.node.goquorum.miner.blockPeriod }} --mine --miner.threads {{ .Values.node.goquorum.miner.threads }} --miner.gasprice 0 --emitcheckpoints \
-            --syncmode full --nousb \
+            --syncmode full \
             --networkid {{ .Values.node.goquorum.networkId }} \
           {{- if .Values.node.goquorum.rpc.enabled }}
-            --rpc --rpcaddr 0.0.0.0 --rpcport 8545 --rpccorsdomain "*" --rpcvhosts "*" --rpcapi admin,db,eth,debug,miner,net,shh,txpool,personal,web3,quorum,istanbul \
+            --http --http.addr {{ .Values.node.goquorum.rpc.addr }} --http.port {{ .Values.node.goquorum.rpc.port }} --http.corsdomain {{ .Values.node.goquorum.rpc.corsDomain | quote }} --http.vhosts {{ .Values.node.goquorum.rpc.vHosts | quote }} --http.api {{ .Values.node.goquorum.rpc.api | quote }} \
           {{- end }}
           {{- if .Values.node.goquorum.ws.enabled }}
             --ws --ws.addr 0.0.0.0 --ws.port 8546 --ws.origins "*" --ws.api admin,db,eth,debug,miner,net,shh,txpool,personal,web3,quorum,istanbul \
           {{- end }}
             --port {{ .Values.node.goquorum.p2p.port }} \
             --metrics --pprof --pprof.addr {{ .Values.node.goquorum.metrics.pprofaddr | quote }} --pprof.port {{ .Values.node.goquorum.metrics.pprofport }}
-
         livenessProbe:
           httpGet:
             path: /
