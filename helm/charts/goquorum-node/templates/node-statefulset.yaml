@@ -127,7 +127,7 @@ spec:
                   "useWhiteList": false,
                   "jdbc": {
                     "username": "sa",
-                    "": "",
+                    "password": "",
                     "url": "jdbc:h2:{{ .Values.node.tessera.dataPath }}/tm/db;MODE=Oracle;TRACE_LEVEL_SYSTEM_OUT=0",
                     "autoCreateTables": true
                   },
