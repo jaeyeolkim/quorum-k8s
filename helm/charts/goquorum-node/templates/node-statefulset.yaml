@@ -285,7 +285,7 @@ spec:
             --ws --ws.addr 0.0.0.0 --ws.port 8546 --ws.origins "*" --ws.api admin,db,eth,debug,miner,net,shh,txpool,personal,web3,quorum,istanbul \
           {{- end }}         
           {{- if hasKey .Values.node.goquorum.account "unlock" }}
-             --unlock {{ .Values.node.goquorum.account.unlock }} --allow-insecure-unlock --password {{ .Values.node.goquorum.account.passwordPath }} \
+            --unlock {{ .Values.node.goquorum.account.unlock }} --allow-insecure-unlock --password {{ .Values.node.goquorum.account.passwordPath }} \
           {{- end }}
             --port {{ .Values.node.goquorum.p2p.port }} \
             --metrics --pprof --pprof.addr {{ .Values.node.goquorum.metrics.pprofaddr | quote }} --pprof.port {{ .Values.node.goquorum.metrics.pprofport }}
