@@ -264,7 +264,7 @@ spec:
             geth --datadir={{ .Values.node.goquorum.dataPath }} init {{ .Values.node.goquorum.genesisFilePath }}
             cp {{ .Values.node.goquorum.keysPath }}/nodekey {{ .Values.node.goquorum.dataPath }}/geth/nodekey
             cp /config/static/static-nodes.json {{ .Values.node.goquorum.dataPath }}/geth/static-nodes.json
-            cp /config/static/static-nodes.json {{ .Values.node.goquorum.dataPath }}/geth/permissions-nodes.json
+            cp /config/static/static-nodes.json {{ .Values.node.goquorum.dataPath }}/geth/permissioned-nodes.json
             mkdir -p {{ .Values.node.goquorum.dataPath }}/keystore/
             cp {{ .Values.node.goquorum.keysPath }}/accountKeystore {{ .Values.node.goquorum.dataPath }}/keystore/key;
 
