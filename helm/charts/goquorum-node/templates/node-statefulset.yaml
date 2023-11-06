@@ -264,31 +264,32 @@ spec:
             geth --datadir={{ .Values.node.goquorum.dataPath }} init {{ .Values.node.goquorum.genesisFilePath }}
             cp {{ .Values.node.goquorum.keysPath }}/nodekey {{ .Values.node.goquorum.dataPath }}/geth/nodekey
             cp /config/static/static-nodes.json {{ .Values.node.goquorum.dataPath }}/geth/static-nodes.json
-            cp /config/static/static-nodes.json {{ .Values.node.goquorum.dataPath }}/geth/permissioned-nodes.json
             mkdir -p {{ .Values.node.goquorum.dataPath }}/keystore/
             cp {{ .Values.node.goquorum.keysPath }}/accountKeystore {{ .Values.node.goquorum.dataPath }}/keystore/key;
 
             geth \
             --datadir {{ .Values.node.goquorum.dataPath }} \
-            --nodiscover \
-            --nat=any \
-            --permissioned \
-            --emitcheckpoints \
+            --nodiscover --ipcdisable \
+            --nat extip:$POD_IP \
             --verbosity {{ .Values.node.goquorum.log.verbosity }} \
             --istanbul.blockperiod {{ .Values.node.goquorum.miner.blockPeriod }} --mine --miner.threads {{ .Values.node.goquorum.miner.threads }} --miner.gasprice 0 --emitcheckpoints \
-            --syncmode full \
+            --syncmode full --nousb \
+            --metrics --pprof --pprof.addr {{ .Values.node.goquorum.metrics.pprofaddr | quote }} --pprof.port {{ .Values.node.goquorum.metrics.pprofport }} \
             --networkid {{ .Values.node.goquorum.networkId }} \
+            --port {{ .Values.node.goquorum.p2p.port }} \
           {{- if .Values.node.goquorum.rpc.enabled }}
             --http --http.addr {{ .Values.node.goquorum.rpc.addr }} --http.port {{ .Values.node.goquorum.rpc.port }} --http.corsdomain {{ .Values.node.goquorum.rpc.corsDomain | quote }} --http.vhosts {{ .Values.node.goquorum.rpc.vHosts | quote }} --http.api {{ .Values.node.goquorum.rpc.api | quote }} \
           {{- end }}
           {{- if .Values.node.goquorum.ws.enabled }}
-            --ws --ws.addr 0.0.0.0 --ws.port 8546 --ws.origins "*" --ws.api admin,db,eth,debug,miner,net,shh,txpool,personal,web3,quorum,istanbul \
-          {{- end }}         
-          {{- if hasKey .Values.node.goquorum.account "unlock" }}
-            --unlock {{ .Values.node.goquorum.account.unlock }} --allow-insecure-unlock --password {{ .Values.node.goquorum.account.passwordPath }} \
+            --ws --ws.addr {{ .Values.node.goquorum.ws.addr }} --ws.port {{ .Values.node.goquorum.ws.port }} --ws.origins {{ .Values.node.goquorum.ws.origins | quote }} --ws.api {{ .Values.node.goquorum.ws.api | quote }} \
           {{- end }}
-            --port {{ .Values.node.goquorum.p2p.port }} \
-            --metrics --pprof --pprof.addr {{ .Values.node.goquorum.metrics.pprofaddr | quote }} --pprof.port {{ .Values.node.goquorum.metrics.pprofport }}
+          {{- if .Values.quorumFlags.privacy }}
+            --ptm.timeout 5 --ptm.url {{ .Values.node.goquorum.privacy.url }} --ptm.http.writebuffersize 4096 --ptm.http.readbuffersize 4096 --ptm.tls.mode off \
+          {{- end }}          
+          {{- if hasKey .Values.node.goquorum.account "unlock" }}
+             --unlock {{ .Values.node.goquorum.account.unlock }} --allow-insecure-unlock --password {{ .Values.node.goquorum.account.passwordPath }} \
+          {{- end }}
+
         livenessProbe:
           httpGet:
             path: /
