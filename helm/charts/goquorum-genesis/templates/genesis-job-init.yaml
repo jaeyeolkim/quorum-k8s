@@ -104,6 +104,7 @@ spec:
                 kubectl get configmap --namespace {{ .Release.Namespace }} goquorum-peers
                 if [ $? -ne 0 ]; then
                   kubectl create configmap --namespace {{ .Release.Namespace }} goquorum-peers --from-file=static-nodes.json=/generated-config/static-nodes.json
+                  kubectl create configmap --namespace {{ .Release.Namespace }} goquorum-permissioned-peers --from-file=permissioned-nodes.json=/generated-config/static-nodes.json
                 fi
               }
 
