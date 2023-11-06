@@ -48,7 +48,7 @@ node:
     keysPath: "/keys"
     genesisFilePath: "/etc/genesis/genesis.json"
     customLabels: {}
-    networkId: 10
+    networkId: 1337
     replicaCount: 1
     account:
       unlock: 0
@@ -113,7 +113,7 @@ node:
 image:
   goquorum:
     repository: quorumengineering/quorum
-    tag: 22.7.1
+    tag: 23.4.0
   tessera:
     repository: quorumengineering/tessera
     tag: 22.1.7

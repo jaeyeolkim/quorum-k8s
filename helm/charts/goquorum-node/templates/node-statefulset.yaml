@@ -1,13 +1,9 @@
-
 ---
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: {{ template "goquorum-node.fullname" . }}
   labels:
-{{- if and (eq .Values.cluster.provider "azure") (.Values.cluster.cloudNativeServices) }}
-    azure.workload.identity/use: "true"
-{{- end }}  
     app.kubernetes.io/name: goquorum-statefulset
     app.kubernetes.io/component: goquorum
     app.kubernetes.io/part-of: {{ include "goquorum-node.fullname" . }}
@@ -32,21 +28,9 @@ spec:
       app.kubernetes.io/release: {{ .Release.Name }}
       app.kubernetes.io/managed-by: helm
   serviceName: {{ include "goquorum-node.fullname" . }}
-  volumeClaimTemplates:
-  - metadata:
-      name: data
-    spec:
-      accessModes: [ "ReadWriteOnce" ]
-      storageClassName: {{ include "goquorum-node.fullname" . }}-storage
-      resources:
-        requests:
-          storage: "{{ .Values.storage.pvcSizeLimit }}"
   template:
     metadata:
       labels:
-{{- if and (eq .Values.cluster.provider "azure") (.Values.cluster.cloudNativeServices) }}
-        azure.workload.identity/use: "true"
-{{- end }}
         app.kubernetes.io/name: goquorum-statefulset
         app.kubernetes.io/component: goquorum
         app.kubernetes.io/part-of: {{ include "goquorum-node.fullname" . }}
@@ -58,24 +42,18 @@ spec:
         prometheus.io/port: {{ .Values.node.goquorum.metrics.pprofport | quote}}
         prometheus.io/path: "/debug/metrics/prometheus"        
     spec:
-{{- if and (eq .Values.cluster.provider "azure") (.Values.cluster.cloudNativeServices) }}
-      serviceAccountName: {{ .Values.azure.serviceAccountName }}
-{{- else if and (eq .Values.cluster.provider "aws") (.Values.cluster.cloudNativeServices) }}
-      serviceAccountName: {{ .Values.aws.serviceAccountName }}
-{{- else }}
       serviceAccountName: {{ include "goquorum-node.fullname" . }}-sa
-{{- end }}       
       containers:
       - name: {{ include "goquorum-node.fullname" . }}-quorum
         image: {{ .Values.image.goquorum.repository }}:{{ .Values.image.goquorum.tag }}
         imagePullPolicy: {{ .Values.image.goquorum.imagePullPolicy }}
         resources:
           requests:
-            cpu: "{{ .Values.node.goquorum.resources.cpuRequest }}"
-            memory: "{{ .Values.node.goquorum.resources.memRequest }}"
+            cpu: 100m
+            memory: 1024Mi
           limits:
-            cpu: "{{ .Values.node.goquorum.resources.cpuLimit }}"
-            memory: "{{ .Values.node.goquorum.resources.memLimit }}"
+            cpu: 500m
+            memory: 2048Mi
         env:
           - name: POD_IP
             valueFrom:
@@ -86,11 +64,11 @@ spec:
               fieldRef:
                 fieldPath: metadata.name
           - name: QUORUM_NETWORK_ID
-            value: "{{ .Values.node.goquorum.networkId }}"
+            value: "1337"
           - name: QUORUM_CONSENSUS
             value: istanbul
           - name: PRIVATE_CONFIG
-            value: "ignore"
+            value: ignore
         volumeMounts:
           - name: keys
             mountPath: /config/keys
@@ -131,12 +109,6 @@ spec:
         args:
           - |
             exec
-
-          {{- if .Values.quorumFlags.privacy }}
-            until $(curl --output /dev/null --silent --head --fail http://localhost:9000/upcheck); do echo 'waiting for transaction manager to start...'; sleep 5; done;
-            echo 'transaction manager is up';
-          {{- end }}
-
             cp /config/static-nodes/static-nodes.json /data/
             cp /config/permissions-nodes/*.json /data/
             geth --datadir=/data init /config/quorum/genesis.json
@@ -146,21 +118,16 @@ spec:
 
             geth \
             --datadir /data \
-            --nodiscover \
-            --nat=any \
+            --networkid 1337 --nodiscover --verbosity 5 \
             --permissioned \
-            --emitcheckpoints \
-            --verbosity 5 \
-            --istanbul.blockperiod 1 --mine --miner.threads 1 --emitcheckpoints \
             --syncmode full \
-            --networkid ${QUORUM_NETWORK_ID} \
-            --http --http.addr 0.0.0.0 --http.port 8545 --http.corsdomain "*" --http.vhosts "*" --http.api admin,db,eth,debug,miner,net,shh,txpool,personal,web3,quorum,istanbul \
-            --ws --ws.addr 0.0.0.0 --ws.port 8546 --ws.origins "*" --ws.api admin,db,eth,debug,miner,net,shh,txpool,personal,web3,quorum,istanbul \
-            --port 30303 \
-            --unlock 0 \
-            --allow-insecure-unlock \
-            --metrics --pprof --pprof.addr 0.0.0.0 --pprof.port 9545 \
-            --password /config/keys/accountPassword
+            --istanbul.blockperiod 1 --mine --miner.threads 1 --miner.gasprice 0 --emitcheckpoints \
+            --http --http.addr 0.0.0.0 --http.port 8545 --http.corsdomain "*" --http.vhosts "*" \
+            --ws --ws.addr 0.0.0.0 --ws.port 8546 --ws.origins "*" \
+            --http.api admin,eth,debug,miner,net,txpool,personal,web3,istanbul \
+            --ws.api admin,eth,debug,miner,net,txpool,personal,web3,istanbul \
+            --unlock 0 --allow-insecure-unlock --password /config/keys/accountPassword \
+            --port 30303
         livenessProbe:
           httpGet:
             path: /
@@ -168,9 +135,8 @@ spec:
             httpHeaders:
               - name: Content-Type
                 value: application/json
-          initialDelaySeconds: 180
-          periodSeconds: 60          
-
+          initialDelaySeconds: 120
+          periodSeconds: 30
       volumes:
       - name: keys
         secret:
