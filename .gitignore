@@ -1,1 +1,2 @@
 helm/charts/goquorum-node/templates/node-service-account.yaml
+helm/debug/debug.yaml
