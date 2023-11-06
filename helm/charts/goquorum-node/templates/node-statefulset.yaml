@@ -66,118 +66,6 @@ spec:
       serviceAccountName: {{ include "goquorum-node.fullname" . }}-sa
 {{- end }}       
       containers:
-
-{{- if .Values.quorumFlags.privacy }}
-      - name: {{ include "goquorum-node.fullname" . }}-tessera
-        image: {{ .Values.image.tessera.repository }}:{{ .Values.image.tessera.tag }}
-        imagePullPolicy: {{ .Values.image.tessera.imagePullPolicy }}
-        resources:
-          requests:
-            cpu: "{{ .Values.node.tessera.resources.cpuRequest }}"
-            memory: "{{ .Values.node.tessera.resources.memRequest }}"
-          limits:
-            cpu: "{{ .Values.node.tessera.resources.cpuLimit }}"
-            memory: "{{ .Values.node.tessera.resources.memLimit }}"
-        env:
-          - name: POD_IP
-            valueFrom:
-              fieldRef:
-                fieldPath: status.podIP
-          - name: POD_NAME
-            valueFrom:
-              fieldRef:
-                fieldPath: metadata.name
-          - name: TESSERA_CONFIG_TYPE
-            value: "-09"
-
-        volumeMounts:
-{{- if and (ne .Values.cluster.provider "local") (.Values.cluster.cloudNativeServices) }}
-          - name: secrets-store
-            mountPath: {{ .Values.node.tessera.keysPath }}
-{{- else }}
-          - name: tessera-keys
-            mountPath: {{ .Values.node.tessera.keysPath }}
-            readOnly: true
-{{- end}}   
-          - name: data
-            mountPath: {{ .Values.node.tessera.dataPath }}
-          - name: tessera-peers
-            mountPath: /config/tessera-peers
-        ports:
-          - name: tessera
-            containerPort: {{ .Values.node.tessera.port }}
-            protocol: TCP
-          - name: tessera-tp
-            containerPort: {{ .Values.node.tessera.tpport }}
-            protocol: TCP
-          - name: tessera-q2t
-            containerPort: {{ .Values.node.tessera.q2tport }}
-            protocol: TCP
-        command:
-          - /bin/sh
-          - -c
-        args:
-          - |
-            exec
-
-            cp {{ .Values.node.tessera.keysPath }}/tm.* {{ .Values.node.tessera.dataPath }}/ ;
-
-                cat <<EOF > {{ .Values.node.tessera.dataPath }}/tessera-config-09.json
-                {
-                  "useWhiteList": false,
-                  "jdbc": {
-                    "username": "sa",
-                    "password": "",
-                    "url": "jdbc:h2:{{ .Values.node.tessera.dataPath }}/tm/db;MODE=Oracle;TRACE_LEVEL_SYSTEM_OUT=0",
-                    "autoCreateTables": true
-                  },
-                  "serverConfigs":[
-                  {
-                    "app":"ThirdParty",
-                    "enabled": true,
-                    "serverAddress": "http://{{ include "goquorum-node.fullname" . }}.{{ .Release.Namespace }}.svc.cluster.local:{{ .Values.node.tessera.tpport }}",
-                    "communicationType" : "REST"
-                  },
-                  {
-                    "app":"Q2T",
-                    "enabled": true,
-                    "serverAddress": "http://{{ include "goquorum-node.fullname" . }}.{{ .Release.Namespace }}.svc.cluster.local:{{ .Values.node.tessera.q2tport }}",
-                    "sslConfig": {
-                      "tls": "OFF"
-                    },
-                    "communicationType" : "REST"
-                  },
-                  {
-                    "app":"P2P",
-                    "enabled": true,
-                    "serverAddress": "http://{{ include "goquorum-node.fullname" . }}.{{ .Release.Namespace }}.svc.cluster.local:{{ .Values.node.tessera.port }}",
-                    "sslConfig": {
-                      "tls": "OFF"
-                    },
-                    "communicationType" : "REST"
-                  }
-                  ],
-                  "peer": $$(cat /config/tessera-peers/tesseraPeers),
-                  "keys": {
-                  {{ if .Values.node.tessera.password }}
-                    "passwordFile": "{{ .Values.node.tessera.passwordPath }}",
-                  {{ end }}
-                    "keyData": [
-                      {
-                        "privateKeyPath": "/keys/tm.key",
-                        "publicKeyPath": "/keys/tm.pub"
-                      }
-                    ]
-                  },
-                  "alwaysSendTo": []
-                }
-            EOF
-
-                cat {{ .Values.node.tessera.dataPath }}/tessera-config-09.json
-                /tessera/bin/tessera -configfile {{ .Values.node.tessera.dataPath }}/tessera-config-09.json
-
-{{- end }}
-
       - name: {{ include "goquorum-node.fullname" . }}-quorum
         image: {{ .Values.image.goquorum.repository }}:{{ .Values.image.goquorum.tag }}
         imagePullPolicy: {{ .Values.image.goquorum.imagePullPolicy }}
@@ -201,35 +89,23 @@ spec:
             value: "{{ .Values.node.goquorum.networkId }}"
           - name: QUORUM_CONSENSUS
             value: istanbul
-{{- if .Values.quorumFlags.privacy }}
-          - name: QUORUM_PTM_URL
-            value: "http://{{ include "goquorum-node.fullname" . }}.{{ .Release.Namespace }}.svc.cluster.local:{{ .Values.node.tessera.q2tport }}"
-{{ else }}
           - name: PRIVATE_CONFIG
             value: "ignore"
-{{- end }}
         volumeMounts:
-{{- if and (ne .Values.cluster.provider "local") (.Values.cluster.cloudNativeServices) }}
-          - name: secrets-store
-            mountPath: {{ .Values.node.goquorum.keysPath }}
-{{- else}}
-          - name: quorum-keys
-            mountPath: {{ .Values.node.goquorum.keysPath }}
+          - name: keys
+            mountPath: /config/keys
             readOnly: true
-{{- if .Values.quorumFlags.privacy }}
-          - name: tessera-keys
-            mountPath: {{ .Values.node.goquorum.privacy.pubkeysPath }}
+          - name: static-nodes-file
+            mountPath: /config/static-nodes
             readOnly: true
-{{- end}}            
-{{- end}}
-          - name: genesis
-            mountPath: /etc/genesis
+          - name: permissions-nodes-config
+            mountPath: /config/permissions-nodes/
             readOnly: true
-          - name: static-nodes
-            mountPath: /config/static
+          - name: genesis-file
+            mountPath: /config/quorum/
             readOnly: true
           - name: data
-            mountPath: {{ .Values.node.goquorum.dataPath }}
+            mountPath: /data
         ports:
           - name: json-rpc
             containerPort: {{ .Values.node.goquorum.rpc.port }}
@@ -255,12 +131,18 @@ spec:
         args:
           - |
             exec
+
+          {{- if .Values.quorumFlags.privacy }}
+            until $(curl --output /dev/null --silent --head --fail http://localhost:9000/upcheck); do echo 'waiting for transaction manager to start...'; sleep 5; done;
+            echo 'transaction manager is up';
+          {{- end }}
+
             cp /config/static-nodes/static-nodes.json /data/
             cp /config/permissions-nodes/*.json /data/
-            cp /config/quorum/genesis.json /data/
             geth --datadir=/data init /config/quorum/genesis.json
-            cp /config/keys/accountkey /data/keystore/key
+            cp /config/keys/accountKeystore /data/keystore/accountKeystore
             cp /config/keys/nodekey /data/geth/nodekey
+            cp /config/keys/nodekey.pub /data/geth/nodekey.pub
 
             geth \
             --datadir {{ .Values.node.goquorum.dataPath }} \
