@@ -255,17 +255,12 @@ spec:
         args:
           - |
             exec
-
-          {{- if .Values.quorumFlags.privacy }}
-            until $(curl --output /dev/null --silent --head --fail http://localhost:9000/upcheck); do echo 'waiting for transaction manager to start...'; sleep 5; done;
-            echo 'transaction manager is up';
-          {{- end }}
-
-            geth --datadir={{ .Values.node.goquorum.dataPath }} init {{ .Values.node.goquorum.genesisFilePath }}
-            cp {{ .Values.node.goquorum.keysPath }}/nodekey {{ .Values.node.goquorum.dataPath }}/geth/nodekey
-            cp /config/static/static-nodes.json {{ .Values.node.goquorum.dataPath }}/geth/static-nodes.json
-            mkdir -p {{ .Values.node.goquorum.dataPath }}/keystore/
-            cp {{ .Values.node.goquorum.keysPath }}/accountKeystore {{ .Values.node.goquorum.dataPath }}/keystore/key;
+            cp /config/static-nodes/static-nodes.json /data/
+            cp /config/permissions-nodes/*.json /data/
+            cp /config/quorum/genesis.json /data/
+            geth --datadir=/data init /config/quorum/genesis.json
+            cp /config/keys/accountkey /data/keystore/key
+            cp /config/keys/nodekey /data/geth/nodekey
 
             geth \
             --datadir {{ .Values.node.goquorum.dataPath }} \
