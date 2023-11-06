@@ -53,7 +53,7 @@ node:
     account:
       unlock: 0
       password: ""
-      passwordPath: "/config/keys/accountPassword"
+      passwordPath: "/keys/accountPassword"
     log:
       verbosity: 5
     miner:
