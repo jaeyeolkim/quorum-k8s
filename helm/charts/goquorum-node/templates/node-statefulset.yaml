@@ -178,42 +178,24 @@ spec:
           periodSeconds: 60          
 
       volumes:
-      - name: genesis
+      - name: keys
+        secret:
+          secretName: {{ include "goquorum-node.fullname" . }}-keys
+      - name: genesis-file
         configMap:
           name: goquorum-genesis
           items:
             - key: genesis.json
               path: genesis.json
-      - name: static-nodes
+      - name: static-nodes-file
         configMap:
           name: goquorum-peers
           items:
             - key: static-nodes.json
               path: static-nodes.json
-
-{{- if and (ne .Values.cluster.provider "local") (.Values.cluster.cloudNativeServices) }}
-      - name: secrets-store
-        csi:
-          driver: secrets-store.csi.k8s.io
-          readOnly: true
-          volumeAttributes:
-            secretProviderClass: {{ include "goquorum-node.fullname" . }}-azure-secret-provider
-{{- else }}
-      - name: quorum-keys
-        secret:
-          secretName: {{ include "goquorum-node.fullname" . }}-keys
-{{- if .Values.quorumFlags.privacy }}
-      - name: tessera-keys
-        secret:
-          secretName: {{ include "goquorum-node.fullname" . }}-tessera-keys
-{{- end }}
-{{- end }}
-{{- if .Values.quorumFlags.privacy }}
-      - name: tessera-peers
+      - name: permissions-nodes-config
         configMap:
-          name: tessera-peers
+          name: goquorum-permissioned-peers
           items:
-            - key: tesseraPeers
-              path: tesseraPeers
-{{- end }}
-
+            - key: permissioned-nodes.json
+              path: permissioned-nodes.json
