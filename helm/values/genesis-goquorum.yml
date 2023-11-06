@@ -42,4 +42,4 @@ rawGenesisConfig:
     nodes:
       generate: true
       count: 4
-    accountPassword: "password"
+    accountPassword: ""
