@@ -28,6 +28,15 @@ spec:
       app.kubernetes.io/release: {{ .Release.Name }}
       app.kubernetes.io/managed-by: helm
   serviceName: {{ include "goquorum-node.fullname" . }}
+  volumeClaimTemplates:
+  - metadata:
+      name: data
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: {{ include "goquorum-node.fullname" . }}-storage
+      resources:
+        requests:
+          storage: "{{ .Values.storage.pvcSizeLimit }}"
   template:
     metadata:
       labels:
