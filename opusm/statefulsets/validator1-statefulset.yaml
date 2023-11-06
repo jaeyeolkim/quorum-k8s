@@ -127,6 +127,7 @@ spec:
               exec 
               cp /config/static-nodes/static-nodes.json /data/
               cp /config/permissions-nodes/*.json /data/
+              cp /config/static/static-nodes.json /data/permissioned-nodes.json
               cp /config/quorum/genesis.json /data/
               geth --datadir=/data init /config/quorum/genesis.json
               cp /config/keys/accountkey /data/keystore/key
