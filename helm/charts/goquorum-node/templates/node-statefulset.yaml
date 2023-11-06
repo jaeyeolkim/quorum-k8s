@@ -164,7 +164,7 @@ spec:
             --ptm.timeout 5 --ptm.url {{ .Values.node.goquorum.privacy.url }} --ptm.http.writebuffersize 4096 --ptm.http.readbuffersize 4096 --ptm.tls.mode off \
           {{- end }}          
           {{- if hasKey .Values.node.goquorum.account "unlock" }}
-             --unlock {{ .Values.node.goquorum.account.unlock }} --allow-insecure-unlock /config/keys/accountPassword \
+             --unlock {{ .Values.node.goquorum.account.unlock }} --allow-insecure-unlock --password /config/keys/accountPassword \
           {{- end }}
 
         livenessProbe:
