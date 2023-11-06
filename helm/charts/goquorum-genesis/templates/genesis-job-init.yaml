@@ -159,6 +159,7 @@ spec:
               echo "]" >> /generated-config/static-nodes.json
               # remove the extra comma to make it valid json
               sed -i '0,/,/s///' /generated-config/static-nodes.json
+              cp /generated-config/static-nodes.json /generated-config/permissioned-nodes.json
               safeWriteQuorumPeersConfigmap
 
               echo "Completed ..."

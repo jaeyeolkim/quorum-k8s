@@ -68,6 +68,7 @@ spec:
     - ReadWriteOnce
   hostPath:
     path: "/tmp/{{ include "goquorum-node.fullname" . }}"
+  # persistentVolumeReclaimPolicy: Delete
 
 {{- end }}
 
