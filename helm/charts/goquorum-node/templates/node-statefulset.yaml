@@ -154,10 +154,8 @@ spec:
             --istanbul.blockperiod 1 --mine --miner.threads 1 --emitcheckpoints \
             --syncmode full \
             --networkid ${QUORUM_NETWORK_ID} \
-            --http --http.addr 0.0.0.0 --http.port 8545 --http.corsdomain "*" --http.vhosts "*" \ 
-            --http.api admin,db,eth,debug,miner,net,shh,txpool,personal,web3,quorum,istanbul \
-            --ws --ws.addr 0.0.0.0 --ws.port 8546 --ws.origins "*" \
-            --ws.api admin,db,eth,debug,miner,net,shh,txpool,personal,web3,quorum,istanbul \
+            --http --http.addr 0.0.0.0 --http.port 8545 --http.corsdomain "*" --http.vhosts "*" --http.api admin,db,eth,debug,miner,net,shh,txpool,personal,web3,quorum,istanbul \
+            --ws --ws.addr 0.0.0.0 --ws.port 8546 --ws.origins "*" --ws.api admin,db,eth,debug,miner,net,shh,txpool,personal,web3,quorum,istanbul \
             --port 30303 \
             --unlock 0 \
             --allow-insecure-unlock \
