@@ -4,7 +4,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: {{ include "goquorum-node.fullname" . }}-storage
 spec:
-  storageClassName: nfs-storage
+  storageClassName: nfs-client
   accessModes:
     - ReadWriteMany
   resources:
