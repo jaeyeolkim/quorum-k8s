@@ -113,7 +113,7 @@ node:
 image:
   goquorum:
     repository: quorumengineering/quorum
-    tag: latest
+    tag: 22.4.0
   tessera:
     repository: quorumengineering/tessera
     tag: 22.1.7
