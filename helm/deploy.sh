@@ -1,0 +1,1 @@
+helm install validator-1 ./charts/goquorum-node --namespace quorum --values ./values/validator.yml

@@ -1,0 +1,2 @@
+helm install validator-1 ./charts/goquorum-node --namespace quorum --values ./values/validator.yml --dry-run --debug > debug.yaml
+# scp -i ~/.ssh/lightsail_ubuntu1.pem ubuntu@13.125.35.215:/home/ubuntu/quorum-k8s/helm/debug.yaml workspace/opusm/quorum-k8s/helm/debug
