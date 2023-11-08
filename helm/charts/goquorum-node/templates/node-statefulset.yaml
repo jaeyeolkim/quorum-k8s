@@ -129,6 +129,7 @@ spec:
             geth \
             --datadir /data \
             --networkid 1337 --nodiscover --verbosity 5 \
+            --permissioned \
             --syncmode full \
             --istanbul.blockperiod 1 --mine --miner.threads 1 --miner.gasprice 0 --emitcheckpoints \
             --http --http.addr 0.0.0.0 --http.port 8545 --http.corsdomain "*" --http.vhosts "*" \
