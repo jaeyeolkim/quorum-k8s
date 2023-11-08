@@ -9,6 +9,6 @@ function geth_attach {
 
 for i in {1..5}
 do
-    echo "validator-$i"
+    echo "======== validator-$i ========"
     geth_attach $(k get svc goquorum-node-validator-${i} -o jsonpath='{.spec.clusterIP}')
 done
