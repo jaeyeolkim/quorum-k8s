@@ -6,3 +6,4 @@ k delete clusterrolebinding.rbac.authorization.k8s.io/run-nfs-client-provisioner
 k delete role.rbac.authorization.k8s.io/leader-locking-nfs-client-provisioner
 k delete rolebinding.rbac.authorization.k8s.io/leader-locking-nfs-client-provisioner
 k delete ns quorum
+sudo rm -rf /mnt/shared/*
