@@ -41,7 +41,7 @@ rawGenesisConfig:
   blockchain:
     nodes: # refers to validators/signers
       generate: true
-      count: 3
+      count: 4
     accountPassword: ""
 
 image:
