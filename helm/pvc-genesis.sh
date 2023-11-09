@@ -1,3 +1,4 @@
+k create ns quorum
 k apply -f ../nfs/rbac.yml
 k apply -f ../nfs/deployment.yml
 k apply -f ../nfs/storage.yml
