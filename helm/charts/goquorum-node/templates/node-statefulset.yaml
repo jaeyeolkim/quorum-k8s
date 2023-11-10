@@ -59,11 +59,11 @@ spec:
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         resources:
           requests:
-            cpu: 100m
-            memory: 1024Mi
+            cpu: "{{ .Values.node.goquorum.resources.cpuRequest }}"
+            memory: "{{ .Values.node.goquorum.resources.memRequest }}"
           limits:
-            cpu: 500m
-            memory: 2048Mi
+            cpu: "{{ .Values.node.goquorum.resources.cpuLimit }}"
+            memory: "{{ .Values.node.goquorum.resources.memLimit }}"
         env:
           - name: POD_IP
             valueFrom:
