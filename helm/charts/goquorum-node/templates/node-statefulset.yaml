@@ -56,7 +56,7 @@ spec:
       containers:
       - name: {{ include "goquorum-node.fullname" . }}-quorum
         image: {{ .Values.image.goquorum.repository }}:{{ .Values.image.goquorum.tag }}
-        imagePullPolicy: {{ .Values.image.goquorum.imagePullPolicy }}
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
         resources:
           requests:
             cpu: 100m
