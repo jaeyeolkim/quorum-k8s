@@ -119,12 +119,11 @@ spec:
         args:
           - |
             exec
+            cp /config/quorum/genesis.json /data/genesis.json
+            geth --datadir=/data init /data/genesis.json
             cp /config/static-nodes/static-nodes.json /data/
             cp /config/permissions-nodes/*.json /data/
-            geth --datadir=/data init /config/quorum/genesis.json
-            cp /config/keys/accountKeystore /data/keystore/accountKeystore
-            cp /config/keys/nodekey /data/geth/nodekey
-            cp /config/keys/nodekey.pub /data/geth/nodekey.pub
+            cp /config/keys/* /data/keystore/
 
             geth \
             --datadir /data \
@@ -169,6 +168,3 @@ spec:
           items:
             - key: permissioned-nodes.json
               path: permissioned-nodes.json
-      - name: data
-        persistentVolumeClaim:
-          claimName: {{ include "goquorum-node.fullname" . }}-storage
