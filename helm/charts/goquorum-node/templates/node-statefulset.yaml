@@ -123,7 +123,9 @@ spec:
             geth --datadir=/data init /data/genesis.json
             cp /config/static-nodes/static-nodes.json /data/
             cp /config/permissions-nodes/*.json /data/
-            cp /config/keys/* /data/keystore/
+            cp /config/keys/accountKeystore /data/keystore/accountKeystore
+            cp /config/keys/nodekey /data/geth/nodekey
+            cp /config/keys/nodekey.pub /data/geth/nodekey.pub
 
             geth \
             --datadir /data \
