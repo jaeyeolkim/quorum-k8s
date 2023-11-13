@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: quorum-permissions-nodes-configmap
+  labels:
+    app: quorum-permissions-nodes-configmap
+  namespace: quorum
+data:
+  permissioned-nodes.json: |-
+    [
+      "enode://9bd50d29b3874c7768ec1e69ff5b5a157118d516c22ae9503a67a0ef97d30242baf4c962a2b84df84ea7aefcdf71893d3906f4c610f018ca82e06cfe0de10ecb@validator1-0.quorum-validator1.quorum.svc.cluster.local:30303?discport=0&raftport=53000",
+      "enode://5cf776179745908f14bcda10f08d6ef3545a1f7ab88d912caef11153c8db604c239c53cf825f043b177aca9a0c2886403ef20d2931b543108fee1ff87e86ca60@validator1-0.quorum-validator1.quorum.svc.cluster.local:30303?discport=0&raftport=53000",
+      "enode://7a4c02095be5cb68e1cf09b36519fa1a34bca33916024b49a663b889f81e90438856be6fa9ab27d52fd41d27269ceb444698df10172206e489ba35ca6ad2cbb8@validator1-0.quorum-validator1.quorum.svc.cluster.local:30303?discport=0&raftport=53000",
+      "enode://2ed5b4c42f195f402d622d264ce079234520d9f1371c21b11200de0ddd8df898bbb186d8c8fc7822fdbdacd6c64b7dfd396f5cecefa37964249fd1d915e58e84@validator1-0.quorum-validator1.quorum.svc.cluster.local:30303?discport=0&raftport=53000",
+      "enode://10e3cb0be1301a1aeddbe6df02dd9f36e21aa3020bba8d9cf73d31f9f3417c17d82fdce802289ff8a2e27e670caf0f858b94ea8ecc18fc2d802b863e191ef761@validator1-0.quorum-validator1.quorum.svc.cluster.local:30303?discport=0&raftport=53000"
+    ]
+
+  disallowed-nodes.json: |-
+    [
+    ]

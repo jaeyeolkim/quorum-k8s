@@ -1,0 +1,64 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: goquorum-genesis-configmap
+  labels:
+    app: goquorum-genesis-configmap
+  namespace: quorum
+data:
+  genesis.json: |-
+    {
+      "nonce": "0x0",
+      "timestamp": "0x58ee40ba",
+      "extraData": "0xf88fa00000000000000000000000000000000000000000000000000000000000000000f8699429325285536807c6d287907772c029d0cf8a0b5094216f87d0b30dbf1e9cb710f65dcec373990ed828941e98d0ba962b31ce41f8dd8c504b9be4b1d0354c9413e33fc227c7f7fb74c701e9bb78069680efbfd294221f9683507f7f3e0b2fac1edb8c9f5195603b31c080c0",
+      "gasLimit": "0xFFFFFF",
+      "gasUsed": "0x0",
+      "number": "0x0",
+      "difficulty": "0x1",
+      "coinbase": "0x0000000000000000000000000000000000000000",
+      "mixHash": "0x63746963616c2062797a616e74696e65206661756c7420746f6c6572616e6365",
+      "parentHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "config": {
+        "chainId": 1337,
+        "homesteadBlock": 0,
+        "eip150Block": 0,
+        "eip150Hash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "eip155Block": 0,
+        "eip158Block": 0,
+        "byzantiumBlock": 0,
+        "constantinopleBlock": 0,
+        "petersburgBlock": 0,
+        "istanbulBlock": 0,
+        "muirglacierblock": 0,
+        "berlinBlock": 0,
+        "londonBlock": 0,
+        "isQuorum": true,
+        "txnSizeLimit": 64,
+        "qbft": {
+          "policy": 0,
+          "epoch": 30000,
+          "ceil2Nby3Block": 0,
+          "testQBFTBlock": 0,
+          "blockperiodseconds": 1,
+          "emptyblockperiodseconds": 60,
+          "requesttimeoutseconds": 10
+        }
+      },
+      "alloc": {
+        "0x5fcd12a03c5dffffbbd3f0f8e9ea23a5dafe6a66": {
+          "balance": "1000000000000000000000000000"
+        },
+        "0x7837078dec85a210380586b6ec2d98ced1dc3525": {
+          "balance": "1000000000000000000000000000"
+        },
+        "0xcbea511f15d927705df56f7d6f6037e795fb629d": {
+          "balance": "1000000000000000000000000000"
+        },
+        "0x6b55c2aae8fb9dc6a64d83c6a353a93277ed326e": {
+          "balance": "1000000000000000000000000000"
+        },
+        "0x71b764228b12b117b92db49d424ff715bb4a135e": {
+          "balance": "1000000000000000000000000000"
+        }
+      }
+    }
