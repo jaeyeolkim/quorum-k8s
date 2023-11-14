@@ -3,7 +3,7 @@
 rpcNodeIP=$(k get svc quorum-validator1 -o jsonpath='{.spec.clusterIP}')
 rpcNode=$(curl -H "Content-Type: application/json" -X POST --data '{"jsonrpc":"2.0","method":"istanbul_nodeAddress","params":[],"id":1}' http://${rpcNodeIP}:8545)
 rpcNodeAddress="$(echo $rpcNode | grep -Po '(?<="result":")[^"]+')"
-echo '"${rpcNodeAddress}"'
+echo "${rpcNodeAddress}"
 
 function geth_method {
   clusterIP=$1
