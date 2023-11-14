@@ -10,7 +10,7 @@ function geth_method {
 for i in {0..4}
 do
   if [[ i -eq 0 ]]; then
-      SVC_NAME="goquorum-node-rpc-${i}"
+      SVC_NAME="goquorum-node-rpc-${((i)+1)}"
   else
       SVC_NAME="goquorum-node-validator-${i}"
   fi
