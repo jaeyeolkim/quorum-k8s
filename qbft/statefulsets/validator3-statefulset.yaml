@@ -152,7 +152,7 @@ spec:
               --permissioned \
               --emitcheckpoints \
               --verbosity 5 \
-              --istanbul.blockperiod 1 --mine --miner.threads 1 --emitcheckpoints \
+              --istanbul.blockperiod 1 --mine --miner.threads 1 \
               --syncmode full \
               --networkid ${QUORUM_NETWORK_ID} \
               --http --http.addr 0.0.0.0 --http.port 8545 --http.corsdomain "*" --http.vhosts "*" --http.api admin,db,eth,debug,miner,net,shh,txpool,personal,web3,quorum,istanbul \
