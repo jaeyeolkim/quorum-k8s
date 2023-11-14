@@ -10,5 +10,5 @@ function geth_method {
 for i in {1..5}
 do
     echo "======== validator-$i ========"
-    geth_method $(k get svc goquorum-validator${i} -o jsonpath='{.spec.clusterIP}')
+    geth_method $(k get svc quorum-validator${i} -o jsonpath='{.spec.clusterIP}')
 done
