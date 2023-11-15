@@ -9,7 +9,7 @@ for i in {0..4}; do
     POD_NAME="goquorum-node-${RELEASE_NAME}-0"
 
     export GOQOURUM_NODE="goquorum-node-${RELEASE_NAME}"
-    export VALIDATOR_NAME="goquorum-node-validator-${i}"
+    export SECRET_NAME="goquorum-node-validator-$((i+1))"
     envsubst < statefulsets/node-statefulset.yaml | kubectl apply -f -
 
     echo "🚀 Starting installation for ${POD_NAME}..."
