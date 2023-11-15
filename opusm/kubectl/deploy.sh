@@ -15,11 +15,12 @@ for i in {0..4}; do
     sleep 10  # Give time for the node to start and establish connections
 
     for j in {1..10}; do
-        isRunning=$(k get po $POD_NAME -o jsonpath='{.status.phase}')
-        if [[ "$isRunning" == "Running" ]]; then
+        pod_status=$(k get po $POD_NAME -o jsonpath='{.status.phase}')
+        if [[ "$pod_status" == "Running" ]]; then
             echo "$POD_NAME is Running"
             break
         else 
+            echo "⏳ $POD_NAME status is $pod_status"
             sleep 5
         fi
     done
