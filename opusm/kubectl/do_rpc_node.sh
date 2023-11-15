@@ -10,7 +10,7 @@ function geth_method {
 }
 
 
-for i in {0..4}
+for i in {1..5}
 do
     SVC_NAME="goquorum-node-validator-${i}"
     echo "======== $SVC_NAME ========"
