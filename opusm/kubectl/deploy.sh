@@ -6,9 +6,9 @@ for i in {0..4}; do
     else
         RELEASE_NAME="validator-${i}"
     fi
-    POD_NAME="goquorum-node-$RELEASE_NAME"
+    POD_NAME="goquorum-node-${RELEASE_NAME}-0"
 
-    export GOQOURUM_NODE=$POD_NAME
+    export GOQOURUM_NODE="goquorum-node-${RELEASE_NAME}"
     envsubst < statefulsets/validator-statefulset.yaml | kubectl apply -f -
 
     echo "🚀 Starting installation for ${POD_NAME}..."
@@ -17,7 +17,7 @@ for i in {0..4}; do
     for j in {1..10}; do
         isRunning=$(k get po $POD_NAME -o jsonpath='{.status.phase}')
         if [[ "$isRunning" == "Running" ]]; then
-        echo "$POD_NAME is Running"
+            echo "$POD_NAME is Running"
             break
         else 
             sleep 5
