@@ -1,23 +1,15 @@
-
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: {{ include "goquorum-node.fullname" . }}
   labels:
-    app.kubernetes.io/name: {{ include "goquorum-node.fullname" . }}
-    app.kubernetes.io/component: service
-    app.kubernetes.io/part-of: {{ include "goquorum-node.fullname" . }}
-    app.kubernetes.io/namespace: {{ .Release.Namespace }}
-    app.kubernetes.io/release: {{ .Release.Name }}
-    app.kubernetes.io/managed-by: helm    
+    app: {{ include "goquorum-node.fullname" . }}
   namespace: {{ .Release.Namespace }}
 spec:
   type: ClusterIP
   selector:
-    app.kubernetes.io/part-of: {{ include "goquorum-node.fullname" . }}
-    app.kubernetes.io/namespace: {{ .Release.Namespace }}
-    app.kubernetes.io/release: {{ .Release.Name }}
+    app: {{ include "goquorum-node.fullname" . }}
   ports:
     - name: json-rpc
       port: {{ .Values.node.goquorum.rpc.port }}
@@ -43,18 +35,3 @@ spec:
       port: {{ .Values.node.goquorum.metrics.pprofport }}
       targetPort: metrics
       protocol: TCP
-
-{{- if .Values.quorumFlags.privacy }}
-    - name: tessera
-      port: {{ .Values.node.tessera.port }}
-      targetPort: tessera
-      protocol: TCP
-    - name: tessera-tp
-      port: {{ .Values.node.tessera.tpport }}
-      targetPort: tessera-tp
-      protocol: TCP
-    - name: tessera-q2t
-      port: {{ .Values.node.tessera.q2tport }}
-      targetPort: tessera-q2t
-      protocol: TCP
-{{- end }}
