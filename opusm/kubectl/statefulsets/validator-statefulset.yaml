@@ -12,6 +12,16 @@ spec:
     matchLabels:
       app: $GOQOURUM_NODE
   serviceName: $GOQOURUM_NODE
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        storageClassName: nfs-client
+        accessModes:
+          - ReadWriteMany
+        resources:
+          requests:
+            storage: "20Gi"
   template:
     metadata:
       labels:
