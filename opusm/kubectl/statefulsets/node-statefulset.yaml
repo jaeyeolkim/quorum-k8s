@@ -99,12 +99,13 @@ spec:
           args:
             - |
               exec 
+              cp /config/quorum/genesis.json /data/genesis.json
+              geth --datadir=/data init /data/genesis.json
               cp /config/static-nodes/static-nodes.json /data/
               cp /config/permissions-nodes/*.json /data/
-              cp /config/quorum/genesis.json /data/
-              geth --datadir=/data init /config/quorum/genesis.json
-              cp /config/keys/accountkey /data/keystore/key
+              cp /config/keys/accountKeystore /data/keystore/accountKeystore
               cp /config/keys/nodekey /data/geth/nodekey
+              cp /config/keys/nodekey.pub /data/geth/nodekey.pub
 
               geth \
               --datadir /data \
