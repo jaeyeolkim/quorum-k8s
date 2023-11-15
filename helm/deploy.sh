@@ -32,7 +32,7 @@ for i in {0..4}; do
         if [[ "$isRunning" == "Running" ]]; then
 	    echo "$POD_NAME is Running"
             break
-        else
+        else 
             sleep 10
         fi
     done
