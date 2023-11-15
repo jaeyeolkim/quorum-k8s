@@ -7,7 +7,7 @@ for i in {0..4}; do
     fi
     POD_NAME="goquorum-node-$RELEASE_NAME"
 
-    export GOQOURUM_NODE=POD_NAME
+    export GOQOURUM_NODE=$POD_NAME
     envsubst < statefulsets/validator-statefulset.yaml | kubectl delete -f -
 
     echo "✅ $POD_NAME deleted successfully."
