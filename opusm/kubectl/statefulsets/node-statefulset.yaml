@@ -132,7 +132,7 @@ spec:
       volumes:
         - name: keys
           secret:
-            secretName: $GOQOURUM_NODE-keys
+            secretName: $VALIDATOR_NAME-keys
         - name: genesis-file
           configMap:
             name: goquorum-genesis
@@ -147,4 +147,4 @@ spec:
                 path: static-nodes.json
         - name: permissions-nodes-config
           configMap:
-            name: permissioned-nodes.json
+            name: goquorum-permissioned-peers

@@ -7,7 +7,7 @@ for i in {0..4}; do
     fi
 
     export GOQOURUM_NODE="goquorum-node-${RELEASE_NAME}"
-    envsubst < statefulsets/validator-statefulset.yaml | kubectl delete -f -
+    envsubst < statefulsets/node-statefulset.yaml | kubectl delete -f -
 
     echo "✅ $GOQOURUM_NODE deleted successfully."
 
