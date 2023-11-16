@@ -29,16 +29,16 @@
 # sh ./do_rpc_node.sh
 
 
-for i in {0..4}; do
-    if [[ i -eq 0 ]]; then
-        RELEASE_NAME="rpc-$((i+1))"
+for i in {1..5}; do
+    if [[ i -eq 5 ]]; then
+        RELEASE_NAME="rpc-1"
     else
         RELEASE_NAME="validator-${i}"
     fi
     POD_NAME="goquorum-node-${RELEASE_NAME}-0"
 
     export METADATA_NAME="goquorum-node-${RELEASE_NAME}"
-    export VALIDATOR_NAME="goquorum-node-validator-$((i+1))"
+    export VALIDATOR_NAME="goquorum-node-validator-$i"
     envsubst < ./kubectl/statefulsets/node-statefulset.yaml | kubectl apply -f -
 
     echo "🚀 Starting installation for ${POD_NAME}..."
