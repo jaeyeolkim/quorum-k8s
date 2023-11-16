@@ -11,6 +11,8 @@ for i in {1..5}; do
 
     export METADATA_NAME="goquorum-node-${RELEASE_NAME}"
     # export VALIDATOR_NAME="goquorum-node-validator-$i"
+    envsubst < ./kubectl/services/ | kubectl apply -f -
+    sleep 3
     envsubst < ./kubectl/statefulsets/node-statefulset.yaml | kubectl apply -f -
 
     echo "🚀 Starting installation for ${POD_NAME}..."

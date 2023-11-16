@@ -22,9 +22,9 @@ for i in {1..20}; do
     fi
 done
 
-echo "🚀 Install helm goquorum-node charts..."
-for j in {1..5}; do
-  sleep 5
-  RELEASE_NAME="validator-$j"
-  helm install $RELEASE_NAME ./helm/charts/goquorum-node --namespace quorum --values ./helm/values/validator.yaml
-done
+# echo "🚀 Install helm goquorum-node charts..."
+# for j in {1..5}; do
+#   sleep 5
+#   RELEASE_NAME="validator-$j"
+#   helm install $RELEASE_NAME ./helm/charts/goquorum-node --namespace quorum --values ./helm/values/validator.yaml
+# done
