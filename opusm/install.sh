@@ -21,7 +21,7 @@ for i in {1..20}; do
         sleep 5
     fi
 done
-sleep 5
+sleep 10
 
 echo "🚀 Install helm goquorum-node charts..."
 for j in {1..5}; do
