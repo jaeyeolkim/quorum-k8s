@@ -10,11 +10,7 @@ function geth_method {
 
 for i in {1..5}
 do
-  if [[ i -eq 5 ]]; then
-      SVC_NAME="goquorum-node-rpc-1"
-  else
-      SVC_NAME="goquorum-node-validator-${i}"
-  fi
+    SVC_NAME="goquorum-node-validator-${i}"
     echo "======== $SVC_NAME ========"
     geth_method $(k get svc $SVC_NAME -o jsonpath='{.spec.clusterIP}')
 done
