@@ -11,7 +11,9 @@ for i in {1..5}; do
 
     export METADATA_NAME="goquorum-node-${RELEASE_NAME}"
     # export VALIDATOR_NAME="goquorum-node-validator-$i"
-    envsubst < ./kubectl/services/ | kubectl apply -f -
+    envsubst < ./kubectl/services/node-storage.yaml | kubectl apply -f -
+    envsubst < ./kubectl/services/node-service.yaml | kubectl apply -f -
+    envsubst < ./kubectl/services/node-service-account.yaml | kubectl apply -f -
     sleep 3
     envsubst < ./kubectl/statefulsets/node-statefulset.yaml | kubectl apply -f -
 
