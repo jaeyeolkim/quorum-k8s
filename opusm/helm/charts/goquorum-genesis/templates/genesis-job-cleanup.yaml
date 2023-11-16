@@ -40,13 +40,11 @@ spec:
           args:
             - |
 
-{{- if .Values.quorumFlags.removeGenesisOnDelete }}
-
               echo "Deleting genesis configmap in k8s ..."
               kubectl delete configmap --namespace {{ .Release.Namespace }} goquorum-genesis
 
               echo "Deleting node-peers configmap in k8s ..."
               kubectl delete configmap --namespace {{ .Release.Namespace }} goquorum-peers
 
-{{- end}} 
-
+              echo "Deleting permissioned-node-peers configmap in k8s ..."
+              kubectl delete configmap --namespace {{ .Release.Namespace }} goquorum-permissioned-peers

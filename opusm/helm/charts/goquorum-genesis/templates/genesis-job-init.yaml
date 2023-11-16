@@ -80,27 +80,9 @@ spec:
 
                   echo "Creating keys for $f ..."
 
-{{- if and (ne .Values.cluster.provider "local") (.Values.cluster.cloudNativeServices) }}
-
-                  echo "Using cloud native services"
-                  safeWriteSecret goquorum-node-validator-${i}-nodekey $FOLDER_PATH/${f}/nodekey
-                  safeWriteSecret goquorum-node-validator-${i}-nodekeypub $FOLDER_PATH/${f}/nodekey.pub 
-                  safeWriteSecret goquorum-node-validator-${i}-enode $FOLDER_PATH/${f}/nodekey.pub 
-                  safeWriteSecret goquorum-node-validator-${i}-address $FOLDER_PATH/${f}/address
-                  kubectl create configmap --namespace {{ .Release.Namespace }} goquorum-node-validator-${i}-address --from-file=address=$FOLDER_PATH/${f}/address
-
-                  safeWriteSecret goquorum-node-validator-${i}-accountPrivateKey $FOLDER_PATH/${f}/accountPrivateKey
-                  safeWriteSecret goquorum-node-validator-${i}-accountPassword $FOLDER_PATH/${f}/accountPassword
-                  safeWriteSecret goquorum-node-validator-${i}-accountKeystore $FOLDER_PATH/${f}/accountKeystore 
-                  safeWriteSecret goquorum-node-validator-${i}-accountAddress $FOLDER_PATH/${f}/accountAddress 
-                  
-{{- else }}
-
                   echo "Using k8s secrets"
                   safeWriteSecret goquorum-node-validator-${i} "$FOLDER_PATH/${f}"
                   kubectl create configmap --namespace {{ .Release.Namespace }} goquorum-node-validator-${i}-address --from-file=address=$FOLDER_PATH/${f}/address
-
-{{- end }}
 
                   # add to the static-nodes
                   pubkey=$(cat $FOLDER_PATH/${f}/nodekey.pub )
