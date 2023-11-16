@@ -13,7 +13,7 @@ for i in {1..5}; do
     RELEASE_NAME="validator-${i}"
   fi
 
-  helm install $RELEASE_NAME ./charts/goquorum-node --namespace quorum --values ./values/validator.yaml
+  helm install $RELEASE_NAME ./helm/charts/goquorum-node --namespace quorum --values ./helm/values/validator.yaml
   sleep 5
   
 done
