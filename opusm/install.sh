@@ -11,7 +11,7 @@ helm install genesis ./helm/charts/goquorum-genesis --namespace quorum --create-
 for i in {1..5}; do
   RELEASE_NAME="validator-${i}"
   helm install $RELEASE_NAME ./helm/charts/goquorum-node --namespace quorum --values ./helm/values/validator.yaml
-  sleep 2
+  sleep 5
 done
 
 # for i in {0..4}; do

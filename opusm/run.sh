@@ -30,14 +30,15 @@
 
 
 for i in {1..5}; do
-    if [[ i -eq 5 ]]; then
-        RELEASE_NAME="rpc-1"
-    else
-        RELEASE_NAME="validator-${i}"
-    fi
+    # if [[ i -eq 5 ]]; then
+    #     RELEASE_NAME="rpc-1"
+    # else
+    #     RELEASE_NAME="validator-${i}"
+    # fi
+    RELEASE_NAME="validator-${i}"
     POD_NAME="goquorum-node-${RELEASE_NAME}-0"
 
-    export METADATA_NAME="goquorum-node-${RELEASE_NAME}"
+    # export METADATA_NAME="goquorum-node-${RELEASE_NAME}"
     export VALIDATOR_NAME="goquorum-node-validator-$i"
     envsubst < ./kubectl/statefulsets/node-statefulset.yaml | kubectl apply -f -
 

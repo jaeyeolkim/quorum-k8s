@@ -2,15 +2,15 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: $METADATA_NAME
+  name: $VALIDATOR_NAME
   labels:
-    app: $METADATA_NAME
+    app: $VALIDATOR_NAME
   namespace: quorum
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: $METADATA_NAME
+      app: $VALIDATOR_NAME
   serviceName: $VALIDATOR_NAME
   volumeClaimTemplates:
     - metadata:
@@ -25,7 +25,7 @@ spec:
   template:
     metadata:
       labels:
-        app: $METADATA_NAME
+        app: $VALIDATOR_NAME
         tier: backend
       annotations:
         prometheus.io/scrape: "true"
@@ -34,7 +34,7 @@ spec:
     spec:
       serviceAccountName: $VALIDATOR_NAME-sa
       containers:
-        - name: $METADATA_NAME
+        - name: $VALIDATOR_NAME
           image: quorumengineering/quorum:latest
           imagePullPolicy: IfNotPresent
           resources:
