@@ -24,7 +24,7 @@ done
 
 echo "🚀 Install helm goquorum-node charts..."
 for j in {1..5}; do
-  sleep 10
+  sleep 5
   RELEASE_NAME="validator-$j"
   helm install $RELEASE_NAME ./helm/charts/goquorum-node --namespace quorum --values ./helm/values/validator.yaml
 done
