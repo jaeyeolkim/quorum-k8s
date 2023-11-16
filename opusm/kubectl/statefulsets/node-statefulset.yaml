@@ -11,7 +11,7 @@ spec:
   selector:
     matchLabels:
       app: $METADATA_NAME
-  serviceName: $VALIDATOR_NAME
+  serviceName: $METADATA_NAME
   volumeClaimTemplates:
     - metadata:
         name: data
@@ -32,7 +32,7 @@ spec:
         prometheus.io/port: "9545"
         prometheus.io/path: "/debug/metrics/prometheus"
     spec:
-      serviceAccountName: $VALIDATOR_NAME-sa
+      serviceAccountName: $METADATA_NAME-sa
       containers:
         - name: $METADATA_NAME
           image: quorumengineering/quorum:latest
