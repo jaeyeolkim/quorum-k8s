@@ -30,15 +30,14 @@
 
 
 for i in {1..5}; do
-    # if [[ i -eq 5 ]]; then
-    #     RELEASE_NAME="rpc-1"
-    # else
-    #     RELEASE_NAME="validator-${i}"
-    # fi
-    RELEASE_NAME="validator-${i}"
+    if [[ i -eq 5 ]]; then
+        RELEASE_NAME="rpc-1"
+    else
+        RELEASE_NAME="validator-${i}"
+    fi
     POD_NAME="goquorum-node-${RELEASE_NAME}-0"
 
-    # export METADATA_NAME="goquorum-node-${RELEASE_NAME}"
+    export METADATA_NAME="goquorum-node-${RELEASE_NAME}"
     export VALIDATOR_NAME="goquorum-node-validator-$i"
     envsubst < ./kubectl/statefulsets/node-statefulset.yaml | kubectl apply -f -
 
@@ -61,7 +60,7 @@ for i in {1..5}; do
 done
 
 
-rpcNodeIP=$(k get svc goquorum-node-validator-1 -o jsonpath='{.spec.clusterIP}')
+rpcNodeIP=$(k get svc goquorum-node-validator-5 -o jsonpath='{.spec.clusterIP}')
 rpcNode=$(curl -H "Content-Type: application/json" -X POST --data '{"jsonrpc":"2.0","method":"istanbul_nodeAddress","params":[],"id":1}' http://${rpcNodeIP}:8545)
 rpcNodeAddress=\"$(echo $rpcNode | grep -Po '(?<="result":")[^"]+')\"
 echo "rpcNodeAddress: $rpcNodeAddress"
