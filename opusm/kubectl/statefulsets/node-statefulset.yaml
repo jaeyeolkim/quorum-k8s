@@ -2,16 +2,16 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: $GOQOURUM_NODE
+  name: $METADATA_NAME
   labels:
-    app: $GOQOURUM_NODE
+    app: $METADATA_NAME
   namespace: quorum
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: $GOQOURUM_NODE
-  serviceName: $GOQOURUM_NODE
+      app: $METADATA_NAME
+  serviceName: $VALIDATOR_NAME
   volumeClaimTemplates:
     - metadata:
         name: data
@@ -25,16 +25,16 @@ spec:
   template:
     metadata:
       labels:
-        app: $GOQOURUM_NODE
+        app: $METADATA_NAME
         tier: backend
       annotations:
         prometheus.io/scrape: "true"
         prometheus.io/port: "9545"
         prometheus.io/path: "/debug/metrics/prometheus"
     spec:
-      serviceAccountName: $GOQOURUM_NODE-sa
+      serviceAccountName: $VALIDATOR_NAME-sa
       containers:
-        - name: $GOQOURUM_NODE
+        - name: $METADATA_NAME
           image: quorumengineering/quorum:latest
           imagePullPolicy: IfNotPresent
           resources:
@@ -129,7 +129,7 @@ spec:
       volumes:
         - name: keys
           secret:
-            secretName: $SECRET_NAME-keys
+            secretName: $VALIDATOR_NAME-keys
         - name: genesis-file
           configMap:
             name: goquorum-genesis
