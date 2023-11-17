@@ -7,7 +7,7 @@ for i in {1..5}; do
     #     RELEASE_NAME="validator-${i}"
     # fi
     RELEASE_NAME="validator-${i}"
-    POD_NAME="goquorum-node-${RELEASE_NAME}-0"
+    POD_NAME="goquorum-node-${RELEASE_NAME}"
 
     export METADATA_NAME="goquorum-node-${RELEASE_NAME}"
     export QUORUM_CONSENSUS="qbft"
