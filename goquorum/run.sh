@@ -23,8 +23,8 @@ for i in {1..5}; do
 
     sleep 10  # Give time for the node to start and establish connections
     for j in {1..10}; do
-        pod_status=$(k get po $POD_NAME -o jsonpath='{.status.phase}')
-        pod_init_status=$(k get po $POD_NAME -o jsonpath='{.status.initContainerStatuses[0].state}')
+        pod_status=$(kubectl get po $POD_NAME -o jsonpath='{.status.phase}')
+        pod_init_status=$(kubectl get po $POD_NAME -o jsonpath='{.status.initContainerStatuses[0].state}')
         if [[ "$pod_status" == "Running" ]]; then
             echo "✅ $POD_NAME installed successfully."
             break
@@ -40,7 +40,7 @@ for i in {1..5}; do
 done
 
 echo "✏️  Propose 'goquorum-node-validator-1' node as false"
-rpcNodeIP=$(k get svc goquorum-node-validator-1 -o jsonpath='{.spec.clusterIP}')
+rpcNodeIP=$(kubectl get svc goquorum-node-validator-1 -o jsonpath='{.spec.clusterIP}')
 rpcNode=$(curl -H "Content-Type: application/json" -X POST --data '{"jsonrpc":"2.0","method":"istanbul_nodeAddress","params":[],"id":1}' http://${rpcNodeIP}:8545)
 rpcNodeAddress=\"$(echo $rpcNode | grep -Po '(?<="result":")[^"]+')\"
 echo "rpcNodeAddress: $rpcNodeAddress"
