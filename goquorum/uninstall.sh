@@ -2,18 +2,8 @@
 
 helm uninstall genesis
 
-for i in {1..5}; do
-  RELEASE_NAME="validator-${i}"
-  helm uninstall $RELEASE_NAME
-done
-
-# for i in {0..4}; do
-#   if [[ i -eq 0 ]]; then
-#     RELEASE_NAME="rpc-$((i+1))"
-#   else
-#     RELEASE_NAME="validator-${i}"
-#   fi
-
+# for i in {1..5}; do
+#   RELEASE_NAME="validator-${i}"
 #   helm uninstall $RELEASE_NAME
 # done
 
