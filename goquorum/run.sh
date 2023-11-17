@@ -6,6 +6,7 @@ for i in {1..5}; do
     # else
     #     RELEASE_NAME="validator-${i}"
     # fi
+    echo "🚀 Starting installation for ${POD_NAME}..."
     RELEASE_NAME="validator-${i}"
     POD_NAME="goquorum-node-${RELEASE_NAME}-0"
 
@@ -17,9 +18,7 @@ for i in {1..5}; do
     sleep 3
     envsubst < ./kubectl/statefulsets/node-statefulset.yaml | kubectl apply -f -
 
-    echo "🚀 Starting installation for ${POD_NAME}..."
     sleep 10  # Give time for the node to start and establish connections
-
     for j in {1..10}; do
         pod_status=$(k get po $POD_NAME -o jsonpath='{.status.phase}')
         if [[ "$pod_status" == "Running" ]]; then
