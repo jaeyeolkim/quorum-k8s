@@ -17,7 +17,8 @@ for i in {1..5}; do
     envsubst < ./kubectl/services/node-service.yaml | kubectl apply -f -
     # envsubst < ./kubectl/services/node-service-account.yaml | kubectl apply -f -
     sleep 3
-    envsubst < ./kubectl/statefulsets/node-statefulset.yaml | kubectl apply -f -
+    # envsubst < ./kubectl/statefulsets/node-statefulset.yaml | kubectl apply -f -
+    envsubst < ./kubectl/statefulsets/validator$i-statefulset.yaml | kubectl apply -f -
 
     sleep 10  # Give time for the node to start and establish connections
     for j in {1..10}; do
