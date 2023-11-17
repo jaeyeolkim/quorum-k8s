@@ -21,7 +21,7 @@ for i in {1..5}; do
     # envsubst < ./kubectl/statefulsets/node-statefulset.yaml | kubectl apply -f -
     envsubst < ./kubectl/statefulsets/validator$i-statefulset.yaml | kubectl apply -f -
 
-    for j in {1..10}; do
+    for j in {1..20}; do
         sleep 10
         pod_status=$(kubectl get po $POD_NAME -o jsonpath='{.status.phase}')
         pod_init_status=$(kubectl get po $POD_NAME -o jsonpath='{.status.initContainerStatuses[0].state}')
