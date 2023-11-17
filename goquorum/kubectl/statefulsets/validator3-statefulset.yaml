@@ -1,5 +1,52 @@
 ---
 apiVersion: v1
+kind: Service
+metadata:
+  name: $METADATA_NAME
+  labels:
+    app: $METADATA_NAME
+  namespace: quorum
+spec:
+  type: ClusterIP
+  selector:
+    app: $METADATA_NAME
+  ports:
+    - port: 30303
+      targetPort: 30303
+      protocol: UDP
+      name: discovery
+    - port: 30303
+      targetPort: 30303
+      protocol: TCP
+      name: rlpx
+    - port: 8545
+      targetPort: 8545
+      protocol: TCP
+      name: json-rpc
+    - port: 8546
+      targetPort: 8546
+      protocol: TCP
+      name: ws
+    - port: 8547
+      targetPort: 8547
+      protocol: TCP
+      name: graphql
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: $METADATA_NAME-storage
+spec:
+  storageClassName: nfs-client
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: "20Gi"
+
+---
+apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: $METADATA_NAME-sa

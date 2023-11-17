@@ -13,16 +13,16 @@ for i in {1..5}; do
     export QUORUM_CONSENSUS="qbft"
     # export VALIDATOR_NAME="goquorum-node-validator-$i"
     echo "🚀 Starting installation for ${POD_NAME}..."
-    sleep 3
-    envsubst < ./kubectl/services/node-storage.yaml | kubectl apply -f -
-    envsubst < ./kubectl/services/node-service.yaml | kubectl apply -f -
+    # sleep 3
+    # envsubst < ./kubectl/services/node-storage.yaml | kubectl apply -f -
+    # envsubst < ./kubectl/services/node-service.yaml | kubectl apply -f -
     # envsubst < ./kubectl/services/node-service-account.yaml | kubectl apply -f -
-    sleep 3
+    # sleep 3
     # envsubst < ./kubectl/statefulsets/node-statefulset.yaml | kubectl apply -f -
     envsubst < ./kubectl/statefulsets/validator$i-statefulset.yaml | kubectl apply -f -
 
-    sleep 10  # Give time for the node to start and establish connections
     for j in {1..10}; do
+        sleep 10
         pod_status=$(kubectl get po $POD_NAME -o jsonpath='{.status.phase}')
         pod_init_status=$(kubectl get po $POD_NAME -o jsonpath='{.status.initContainerStatuses[0].state}')
         if [[ "$pod_status" == "Running" ]]; then
@@ -31,13 +31,13 @@ for i in {1..5}; do
         else 
             echo "⏳ $POD_NAME status is $pod_status"
             echo "⏳ $POD_NAME Init status is $pod_init_status"
-            sleep 10
         fi
     done
 
     echo "-----------------------------------------------------------"
 
 done
+sleep 10
 
 echo "✏️  Propose 'goquorum-node-validator-1' node as false"
 rpcNodeIP=$(kubectl get svc goquorum-node-validator-1 -o jsonpath='{.spec.clusterIP}')
@@ -53,6 +53,7 @@ function geth_method {
 
 for j in {1..5}
 do
+    sleep 5
     SVC_NAME="goquorum-node-validator-${j}"
     echo "======== $SVC_NAME ========"
     geth_method $(k get svc $SVC_NAME -o jsonpath='{.spec.clusterIP}')
