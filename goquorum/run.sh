@@ -31,7 +31,7 @@ for i in {1..5}; do
         else 
             echo "⏳ $POD_NAME status is $pod_status"
             echo "⏳ $POD_NAME Init status is $pod_init_status"
-            sleep 5
+            sleep 10
         fi
     done
 
