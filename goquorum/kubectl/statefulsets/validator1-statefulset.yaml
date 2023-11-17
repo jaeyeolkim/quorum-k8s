@@ -78,13 +78,7 @@ spec:
           args:
             - |
               exec 
-              curl -X GET --connect-timeout 30 --max-time 10 --retry 6 --retry-delay 0 --retry-max-time 300 http://quorum-node-validator-1.quorum.svc.cluster.local:8545
-              sleep 30
-              curl -X GET --connect-timeout 30 --max-time 10 --retry 6 --retry-delay 0 --retry-max-time 300 http://quorum-node-validator-2.quorum.svc.cluster.local:8545
-              sleep 30
-              curl -X GET --connect-timeout 30 --max-time 10 --retry 6 --retry-delay 0 --retry-max-time 300 http://quorum-node-validator-3.quorum.svc.cluster.local:8545
-              sleep 30
-              curl -X GET --connect-timeout 30 --max-time 10 --retry 6 --retry-delay 0 --retry-max-time 300 http://quorum-node-validator-4.quorum.svc.cluster.local:8545
+              curl -X GET --connect-timeout 1 --max-time 1 --retry 0 --retry-delay 0 --retry-max-time 300 http://quorum-node-validator-1.quorum.svc.cluster.local:8545
               sleep 30
       containers:
         - name: $METADATA_NAME
