@@ -10,6 +10,7 @@ for i in {1..5}; do
     POD_NAME="goquorum-node-${RELEASE_NAME}-0"
 
     export METADATA_NAME="goquorum-node-${RELEASE_NAME}"
+    export QUORUM_CONSENSUS="qbft"
     # export VALIDATOR_NAME="goquorum-node-validator-$i"
     echo "🚀 Starting installation for ${POD_NAME}..."
     sleep 3

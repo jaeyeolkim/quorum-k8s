@@ -103,7 +103,7 @@ spec:
             - name: QUORUM_NETWORK_ID
               value: "1337"
             - name: QUORUM_CONSENSUS
-              value: qbft
+              value: $QUORUM_CONSENSUS
             - name: PRIVATE_CONFIG
               value: ignore
           volumeMounts:
