@@ -28,7 +28,7 @@ for i in {0..4}; do
     sleep 30  # Give time for the node to start and establish connections
 
     for j in {1..5}; do
-        isRunning=$(k get po $POD_NAME -o jsonpath='{.status.phase}')
+        isRunning=$(kubectl get po $POD_NAME -o jsonpath='{.status.phase}')
         if [[ "$isRunning" == "Running" ]]; then
 	    echo "$POD_NAME is Running"
             break

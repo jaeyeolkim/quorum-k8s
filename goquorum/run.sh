@@ -56,7 +56,7 @@ do
     sleep 5
     SVC_NAME="goquorum-node-validator-${j}"
     echo "======== $SVC_NAME ========"
-    geth_method $(k get svc $SVC_NAME -o jsonpath='{.spec.clusterIP}')
+    geth_method $(kubectl get svc $SVC_NAME -o jsonpath='{.spec.clusterIP}')
 done
 
 curl -H "Content-Type: application/json" -X POST --data '{"jsonrpc":"2.0","method":"istanbul_getValidators","params":[],"id":1}' http://${clusterIP}:8545

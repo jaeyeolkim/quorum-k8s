@@ -15,5 +15,5 @@ do
       SVC_NAME="goquorum-node-validator-${i}"
   fi
     echo "======== $SVC_NAME ========"
-    geth_method $(k get svc $SVC_NAME -o jsonpath='{.spec.clusterIP}')
+    geth_method $(kubectl get svc $SVC_NAME -o jsonpath='{.spec.clusterIP}')
 done

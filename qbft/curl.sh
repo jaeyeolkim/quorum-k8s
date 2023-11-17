@@ -1,6 +1,6 @@
 #!/bin/bash
 
-rpcNodeIP=$(k get svc quorum-validator1 -o jsonpath='{.spec.clusterIP}')
+rpcNodeIP=$(kubectl get svc quorum-validator1 -o jsonpath='{.spec.clusterIP}')
 rpcNode=$(curl -H "Content-Type: application/json" -X POST --data '{"jsonrpc":"2.0","method":"istanbul_nodeAddress","params":[],"id":1}' http://${rpcNodeIP}:8545)
 rpcNodeAddress=\"$(echo $rpcNode | grep -Po '(?<="result":")[^"]+')\"
 
@@ -16,7 +16,7 @@ function geth_method {
 for i in {1..5}
 do
     echo "======== validator-$i ========"
-    geth_method $(k get svc quorum-validator${i} -o jsonpath='{.spec.clusterIP}')
+    geth_method $(kubectl get svc quorum-validator${i} -o jsonpath='{.spec.clusterIP}')
 done
 
 curl -H "Content-Type: application/json" -X POST --data '{"jsonrpc":"2.0","method":"istanbul_getValidators","params":[],"id":1}' http://${clusterIP}:8545

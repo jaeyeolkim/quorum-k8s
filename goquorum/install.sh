@@ -12,7 +12,7 @@ helm install genesis ./helm/charts/goquorum-genesis --namespace quorum --create-
 sleep 10
 
 for i in {1..20}; do
-    job_status=$(k get job goquorum-genesis-init -o jsonpath='{.status.ready}')
+    job_status=$(kubectl get job goquorum-genesis-init -o jsonpath='{.status.ready}')
     if [[ $job_status -eq 0 ]]; then
         echo "✅ Genesis Job successfully Completed!"
         break
