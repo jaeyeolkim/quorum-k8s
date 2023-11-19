@@ -34,19 +34,6 @@ spec:
 
 ---
 apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: $METADATA_NAME-storage
-spec:
-  storageClassName: nfs-client
-  accessModes:
-    - ReadWriteMany
-  resources:
-    requests:
-      storage: "20Gi"
-
----
-apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: $METADATA_NAME-sa
