@@ -14,13 +14,13 @@ spec:
             secretName: quorum-validator1-keys
         - name: genesis-file
           hostPath:
-            path: $PWD/../artifacts/goQuorum/genesis.json
+            path: $PWD/../../artifacts/goQuorum/genesis.json
             type: File
         - name: static-nodes-file
           hostPath:
-            path: $PWD/../artifacts/goQuorum/static-nodes.json
+            path: $PWD/../../artifacts/goQuorum/static-nodes.json
             type: File
         - name: permissions-nodes-config
           hostPath:
-            path: $PWD/../artifacts/goQuorum
+            path: $PWD/../../artifacts/goQuorum
             type: Directory
