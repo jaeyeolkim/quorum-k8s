@@ -12,3 +12,6 @@ rm -rf artifacts/$yyyy-*
 
 # build statefulsets
 sh ./statefulsets.sh
+
+# build secrets
+sh ./secrets.sh
