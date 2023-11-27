@@ -26,4 +26,5 @@ stringData:
 
 EOF
 
+  cat build/secrets/validator${num}-keys-secret.yaml
 done
