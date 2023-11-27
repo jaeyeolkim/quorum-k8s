@@ -1,10 +1,10 @@
 apiVersion: apps/v1
 kind: StatefulSet
-metadata:
-  name: validator1
-  labels:
-    app: validator1
-  namespace: quorum
+# metadata:
+#   name: validator1
+#   labels:
+#     app: validator1
+#   namespace: quorum
 spec:
   template:
     spec:
