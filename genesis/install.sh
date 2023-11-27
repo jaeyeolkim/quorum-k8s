@@ -10,6 +10,8 @@ yyyy=$(date '+%Y')
 mv artifacts/$yyyy-*/* artifacts
 rm -rf artifacts/$yyyy-*
 
+cd ../..
+
 # build statefulsets
 sh ./statefulsets.sh
 
