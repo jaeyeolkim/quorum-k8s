@@ -48,6 +48,16 @@ spec:
     matchLabels:
       app: validator2
   serviceName: quorum-validator2
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        storageClassName: nfs-client
+        accessModes:
+          - ReadWriteMany
+        resources:
+          requests:
+            storage: "20Gi"
   template:
     metadata:
       labels:
