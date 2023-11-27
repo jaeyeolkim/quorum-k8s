@@ -2,19 +2,19 @@
 
 mkdir -p build/secrets
 
-for i in {1..5}
+for i in {0..4}
 do
 
-  nodekey=$(cat build/statefulsets/artifacts/validator${i-1}/nodekey)
-  accountkey=$(cat build/statefulsets/artifacts/validator${i-1}/accountKeystore)
-  echo "======== build/secrets/validator$i-keys-secret.yaml ========"
-cat <<EOF > ./build/secrets/validator$i-keys-secret.yaml
+  nodekey=$(cat build/statefulsets/artifacts/validator$i/nodekey)
+  accountkey=$(cat build/statefulsets/artifacts/validator$i/accountKeystore)
+  echo "======== build/secrets/validator${i+1}-keys-secret.yaml ========"
+cat <<EOF > ./build/secrets/validator${i+1}-keys-secret.yaml
 apiVersion: v1
 kind: Secret
 metadata:
-  name: quorum-validator$i-keys
+  name: quorum-validator${i+1}-keys
   labels:
-    app: quorum-validator$i-keys
+    app: quorum-validator${i+1}-keys
   namespace: quorum
 type: Opaque
 stringData:
