@@ -4,7 +4,7 @@ mkdir -p build/statefulsets
 
 for i in {1..5}
 do
-    echo "======== validator-$i ========"
+    echo "======== build/statefulsets/validator$i-statefulset.yaml ========"
 cat <<EOF > volumes.yaml
 apiVersion: apps/v1
 kind: StatefulSet
