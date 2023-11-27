@@ -26,15 +26,15 @@ spec:
       volumes:
         - name: genesis-file
           hostPath:
-            path: $PWD/../../artifacts/goQuorum/genesis.json
+            path: ./artifacts/goQuorum/genesis.json
             type: File
         - name: static-nodes-file
           hostPath:
-            path: $PWD/../../artifacts/goQuorum/static-nodes.json
+            path: ./artifacts/goQuorum/static-nodes.json
             type: File
         - name: permissions-nodes-config
           hostPath:
-            path: $PWD/../../artifacts/goQuorum
+            path: ./artifacts/goQuorum
             type: Directory
 EOF
 
