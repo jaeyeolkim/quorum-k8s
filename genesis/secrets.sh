@@ -4,7 +4,7 @@ mkdir -p build/secrets
 
 for i in {0..4}
 do
-  num=$(i+1)
+  num=$((i+1))
   nodekey=$(cat build/statefulsets/artifacts/validator${i}/nodekey)
   accountkey=$(cat build/statefulsets/artifacts/validator${i}/accountKeystore)
   echo "======== build/secrets/validator${num}-keys-secret.yaml ========"
