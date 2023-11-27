@@ -3,4 +3,4 @@ kind: Kustomization
 resources:
   - ../../base/statefulsets/validator1-statefulset.yaml
 patches:
-  - path: ./overlays/statefulsets/volume.yaml
+  - path: ./volume.yaml
