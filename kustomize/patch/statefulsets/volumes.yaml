@@ -21,3 +21,27 @@ spec:
           hostPath:
             path: $PWD/../../artifacts/goQuorum
             type: Directory
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: validator2
+  labels:
+    app: validator2
+  namespace: quorum
+spec:
+  template:
+    spec:
+      volumes:
+        - name: genesis-file
+          hostPath:
+            path: $PWD/../../artifacts/goQuorum/genesis.json
+            type: File
+        - name: static-nodes-file
+          hostPath:
+            path: $PWD/../../artifacts/goQuorum/static-nodes.json
+            type: File
+        - name: permissions-nodes-config
+          hostPath:
+            path: $PWD/../../artifacts/goQuorum
+            type: Directory
