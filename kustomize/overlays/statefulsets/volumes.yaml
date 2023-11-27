@@ -1,17 +1,14 @@
 apiVersion: apps/v1
 kind: StatefulSet
-metadata:
-  name: validator1
-  labels:
-    app: validator1
-  namespace: quorum
+# metadata:
+#   name: validator1
+#   labels:
+#     app: validator1
+#   namespace: quorum
 spec:
   template:
     spec:
       volumes:
-        - name: keys
-          secret:
-            secretName: quorum-validator1-keys
         - name: genesis-file
           hostPath:
             path: $PWD/../../artifacts/goQuorum/genesis.json

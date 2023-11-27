@@ -8,4 +8,5 @@ mv artifacts/$yyyy-*/* artifacts
 rm -rf artifacts/$yyyy-*
 
 # build
-kustomize build > ./new/statefulsets/validator1-statefulset.yaml
+mkdir -p ./build/statefulsets
+kustomize build > ./build/statefulsets/validator1-statefulset.yaml
