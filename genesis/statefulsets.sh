@@ -100,6 +100,8 @@ cat <<EOF >> statefulset.yaml
 EOF
 	done
 done
+
+cat <<EOF >> statefulset.yaml
       containers:
         - name: validator$i
           image: quorumengineering/quorum:latest
