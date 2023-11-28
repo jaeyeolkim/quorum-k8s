@@ -1,5 +1,6 @@
 #!/bin/bash
 
+pwd=${PWD}
 mkdir -p build/statefulsets
 cd build/statefulsets
 
@@ -10,10 +11,9 @@ yyyy=$(date '+%Y')
 mv artifacts/$yyyy-*/* artifacts
 rm -rf artifacts/$yyyy-*
 
-cd ../..
-
-# build statefulsets
+cd pwd
+sh ./configmap.sh
+cd pwd
+sh ./secrets.sh
 sh ./statefulsets.sh
 
-# build secrets
-sh ./secrets.sh
