@@ -118,7 +118,7 @@ cat <<EOF >> statefulset.yaml
             - name: QUORUM_NETWORK_ID
               value: "1337"
             - name: QUORUM_CONSENSUS
-              value: qbft
+              value: istanbul
       volumes:
         - name: keys
           secret:
