@@ -75,7 +75,7 @@ spec:
       serviceAccountName: validator$i-sa
 EOF
 
-if [ i -gt 1 ];then
+if [ $i -gt 1 ];then
 cat <<EOF >> statefulset.yaml
 
       initContainers:
