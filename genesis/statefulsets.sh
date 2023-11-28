@@ -100,6 +100,7 @@ cat <<EOF >> statefulset.yaml
 EOF
 	done
 done
+fi
 
 cat <<EOF >> statefulset.yaml
       containers:
