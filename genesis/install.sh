@@ -2,6 +2,7 @@
 
 pwd=${PWD}
 
+rm -rf artifacts/
 # genesis quorum
 npx quorum-genesis-tool --consensus qbft --validators 5 --chainID 1337 --blockperiod 1 --requestTimeout 10 --epochLength 30000 --difficulty 1 --gasLimit '0xFFFFFF' --coinbase '0x0000000000000000000000000000000000000000' --members 0 --bootnodes 0 --outputPath 'artifacts'
 
@@ -10,9 +11,8 @@ mv artifacts/$yyyy-*/* artifacts
 rm -rf artifacts/$yyyy-*
 
 cd $pwd
-sh ./namespace.sh
-sh ./configmap.sh
+bash ./namespace.sh
+bash ./configmap.sh
 cd $pwd
-sh ./secrets.sh
-sh ./statefulsets.sh
-
+bash ./secrets.sh
+bash ./statefulsets.sh
