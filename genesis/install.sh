@@ -10,6 +10,7 @@ mv artifacts/$yyyy-*/* artifacts
 rm -rf artifacts/$yyyy-*
 
 cd pwd
+sh ./namespace.sh
 sh ./configmap.sh
 cd pwd
 sh ./secrets.sh

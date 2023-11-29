@@ -1,14 +1,24 @@
+#!/bin/bash
+
+mkdir -p ./services
+
+for i in {1..5}
+do
+    echo "======== ./services/validator$i-services.yaml ========"
+
+# validator$i-statefulset.yaml 생성
+cat <<EOF >./services/validator$i-services.yaml
 apiVersion: v1
 kind: Service
 metadata:
-  name: quorum-validator3
+  name: quorum-validator$i
   labels:
-    app: validator3
+    app: validator$i
   namespace: quorum
 spec:
   type: ClusterIP
   selector:
-    app: validator3
+    app: validator$i
   ports:
     - port: 30303
       targetPort: 30303
@@ -30,3 +40,7 @@ spec:
       targetPort: 8547
       protocol: TCP
       name: graphql
+
+EOF
+
+done
