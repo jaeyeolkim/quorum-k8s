@@ -1,6 +1,10 @@
+#!/bin/bash
+
+pwd=${PWD}
 kubectl apply -f ./namespace/
 kubectl apply -f ./secrets/
 
+cd scripts/
 bash ./configmap.sh
 
 kubectl apply -f ./services/
@@ -13,3 +17,5 @@ do
     echo "======== $VALIDATOR_NAME ========"
     kubectl apply -f ./statefulsets/$VALIDATOR_NAME-statefulset.yaml
 done
+
+cd pwd

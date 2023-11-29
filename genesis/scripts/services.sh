@@ -1,13 +1,13 @@
 #!/bin/bash
 
-mkdir -p ./services
+mkdir ../services
 
 for i in {1..5}
 do
-    echo "======== ./services/validator$i-services.yaml ========"
+    echo "======== ../services/validator$i-services.yaml ========"
 
 # validator$i-statefulset.yaml 생성
-cat <<EOF >./services/validator$i-services.yaml
+cat <<EOF >../services/validator$i-services.yaml
 apiVersion: v1
 kind: Service
 metadata:
@@ -43,5 +43,5 @@ spec:
 
 EOF
 
-cat ./services/validator$i-services.yaml
+cat ../services/validator$i-services.yaml
 done
