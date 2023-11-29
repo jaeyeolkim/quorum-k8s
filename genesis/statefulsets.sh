@@ -1,6 +1,7 @@
 #!/bin/bash
 
 mkdir -p ./statefulsets
+QUORUM_NETWORK_ID=1337
 
 for i in {1..5}
 do
