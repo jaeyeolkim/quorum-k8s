@@ -181,22 +181,22 @@ cat <<EOF >>./statefulsets/validator$i-statefulset.yaml
               cp /config/keys/accountkey /data/keystore/key\n
               cp /config/keys/nodekey /data/geth/nodekey\n
               \n
-              geth \n
-              --datadir /data \n
-              --nodiscover \n
-              --nat=any \n
-              --permissioned --emitcheckpoints --verbosity 5 \n
-              --istanbul.blockperiod 1 --mine --miner.threads 1 \n
-              --syncmode full \n
-              --networkid ${QUORUM_NETWORK_ID} \n
-              --http --http.addr 0.0.0.0 --http.port 8545 --http.corsdomain \"*\" --http.vhosts \"*\"  \n
-              --http.api admin,db,eth,debug,miner,net,shh,txpool,personal,web3,quorum,istanbul \n
-              --ws --ws.addr 0.0.0.0 --ws.port 8546 --ws.origins \"*\" \n
-              --ws.api admin,db,eth,debug,miner,net,shh,txpool,personal,web3,quorum,istanbul \n
-              --port 30303 \n
-              --unlock 0  \n
-              --allow-insecure-unlock  \n
-              --metrics --pprof --pprof.addr 0.0.0.0 --pprof.port 9545 \n
+              geth \
+              --datadir /data \
+              --nodiscover \
+              --nat=any \
+              --permissioned --emitcheckpoints --verbosity 5 \
+              --istanbul.blockperiod 1 --mine --miner.threads 1 \
+              --syncmode full \
+              --networkid ${QUORUM_NETWORK_ID} \
+              --http --http.addr 0.0.0.0 --http.port 8545 --http.corsdomain \"*\" --http.vhosts \"*\"  \
+              --http.api admin,db,eth,debug,miner,net,shh,txpool,personal,web3,quorum,istanbul \
+              --ws --ws.addr 0.0.0.0 --ws.port 8546 --ws.origins \"*\" \
+              --ws.api admin,db,eth,debug,miner,net,shh,txpool,personal,web3,quorum,istanbul \
+              --port 30303 \
+              --unlock 0  \
+              --allow-insecure-unlock  \
+              --metrics --pprof --pprof.addr 0.0.0.0 --pprof.port 9545 \
               --password /config/keys/password.txt\n"
           livenessProbe:
             httpGet:
