@@ -5,8 +5,8 @@ mkdir -p ./secrets
 for i in {0..4}
 do
   num=$((i+1))
-  nodekey=$(cat ./statefulsets/artifacts/validator${i}/nodekey)
-  accountkey=$(cat ./statefulsets/artifacts/validator${i}/accountKeystore)
+  nodekey=$(cat ./artifacts/validator${i}/nodekey)
+  accountkey=$(cat ./artifacts/validator${i}/accountKeystore)
   echo "======== ./secrets/validator${num}-keys-secret.yaml ========"
 cat <<EOF > ./secrets/validator${num}-keys-secret.yaml
 apiVersion: v1

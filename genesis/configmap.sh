@@ -1,5 +1,6 @@
 #!/bin/bash
 
+pwd=${PWD}
 cd ./artifacts/goQuorum
 
 # static-nodes.json, permissioned-nodes.json <HOST> replace
@@ -16,3 +17,5 @@ kubectl create configmap quorum-permissions-nodes-configmap --from-file=permissi
 kubectl label configmaps goquorum-genesis-configmap app=goquorum-genesis-configmap -n quorum
 kubectl label configmaps quorum-static-nodes-configmap app=quorum-static-nodes-configmap -n quorum
 kubectl label configmaps quorum-permissions-nodes-configmap app=quorum-permissions-nodes-configmap -n quorum
+
+cd $pwd
