@@ -18,7 +18,7 @@ rm -rf artifacts/$yyyy-*
 # create manifest 
 cd scripts/
 bash ./namespace.sh
-bash ./configmap.sh
+# bash ./configmap.sh
 bash ./secrets.sh
 bash ./services.sh
 bash ./statefulsets.sh

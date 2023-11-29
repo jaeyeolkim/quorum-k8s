@@ -6,9 +6,8 @@ kubectl apply -f ./secrets/
 
 cd scripts/
 bash ./configmap.sh
-
+cd ..
 kubectl apply -f ./services/
-# kubectl apply -f ./deployments/
 
 for i in {1..5}
 do
