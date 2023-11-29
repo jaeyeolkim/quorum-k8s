@@ -43,4 +43,5 @@ spec:
 
 EOF
 
+cat ./services/validator$i-services.yaml
 done

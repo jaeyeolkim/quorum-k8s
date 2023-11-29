@@ -10,3 +10,5 @@ metadata:
   name: quorum
 
 EOF
+
+cat ./namespace/quorum-namespace.yaml
