@@ -41,7 +41,7 @@ subjects:
 EOF
 
 
-cat <<EOF > statefulset.yaml
+cat <<EOF >>./build/statefulsets/validator$i-statefulset.yaml
 ---
 apiVersion: apps/v1
 kind: StatefulSet
@@ -70,12 +70,17 @@ spec:
     metadata:
       labels:
         app: validator$i
+        tier: backend
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9545"
+        prometheus.io/path: "/debug/metrics/prometheus"
     spec:
       serviceAccountName: validator$i-sa
 EOF
 
 if [ $i -gt 1 ];then
-cat <<EOF >> statefulset.yaml
+cat <<EOF >>./build/statefulsets/validator$i-statefulset.yaml
 
       initContainers:
         - name: init-bootnode
@@ -92,8 +97,8 @@ EOF
 for j in {1..5}
 do
 	for (( k=2; k<=$j; k++ ));
-    do
-cat <<EOF >> statefulset.yaml
+  do
+cat <<EOF >>./build/statefulsets/validator$i-statefulset.yaml
               curl -X GET --connect-timeout 30 --max-time 10 --retry 6 --retry-delay 0 --retry-max-time 300 http://quorum-validator$((k-1)).quorum.svc.cluster.local:8545
               sleep 30
 EOF
@@ -101,7 +106,7 @@ EOF
 done
 fi
 
-cat <<EOF >> statefulset.yaml
+cat <<EOF >>./build/statefulsets/validator$i-statefulset.yaml
       containers:
         - name: validator$i
           image: quorumengineering/quorum:latest
@@ -114,26 +119,109 @@ cat <<EOF >> statefulset.yaml
               cpu: 500m
               memory: 2048Mi
           env:
+            - name: POD_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
             - name: QUORUM_NETWORK_ID
               value: "1337"
             - name: QUORUM_CONSENSUS
-              value: istanbul
+              value: qbft
+            - name: PRIVATE_CONFIG
+              value: ignore
+          volumeMounts:
+            - name: keys
+              mountPath: /config/keys/
+              readOnly: true
+            - name: static-nodes-file
+              mountPath: /config/static-nodes
+              readOnly: true
+            - name: permissions-nodes-config
+              mountPath: /config/permissions-nodes/
+              readOnly: true
+            - name: genesis-file
+              mountPath: /config/quorum/
+              readOnly: true
+            - name: data
+              mountPath: /data
+          ports:
+            - containerPort: 8545
+              name: json-rpc
+              protocol: TCP
+            - containerPort: 8546
+              name: ws
+              protocol: TCP
+            - containerPort: 8547
+              name: graphql
+              protocol: TCP
+            - containerPort: 30303
+              name: rlpx
+              protocol: TCP
+            - containerPort: 30303
+              name: discovery
+              protocol: UDP
+            - containerPort: 9545
+              name: metrics
+              protocol: TCP
+          command:
+            - /bin/sh
+            - -c
+          args:
+            - |
+              exec 
+              cp /config/static-nodes/static-nodes.json /data/
+              cp /config/permissions-nodes/*.json /data/
+              cp /config/quorum/genesis.json /data/
+              geth --datadir=/data init /config/quorum/genesis.json
+              cp /config/keys/accountkey /data/keystore/key
+              cp /config/keys/nodekey /data/geth/nodekey
+
+              geth \
+              --datadir /data \
+              --nodiscover \
+              --nat=any \
+              --permissioned \
+              --emitcheckpoints \
+              --verbosity 5 \
+              --istanbul.blockperiod 1 --mine --miner.threads 1 \
+              --syncmode full \
+              --networkid ${QUORUM_NETWORK_ID} \
+              --http --http.addr 0.0.0.0 --http.port 8545 --http.corsdomain "*" --http.vhosts "*" --http.api admin,db,eth,debug,miner,net,shh,txpool,personal,web3,quorum,istanbul \
+              --ws --ws.addr 0.0.0.0 --ws.port 8546 --ws.origins "*" --ws.api admin,db,eth,debug,miner,net,shh,txpool,personal,web3,quorum,istanbul \
+              --port 30303 \
+              --unlock 0 \
+              --allow-insecure-unlock \
+              --metrics --pprof --pprof.addr 0.0.0.0 --pprof.port 9545 \
+              --password /config/keys/password.txt
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 8545
+            initialDelaySeconds: 120
+            periodSeconds: 30
       volumes:
         - name: keys
           secret:
             secretName: quorum-validator$i-keys
+        - name: genesis-file
+          configMap:
+            name: goquorum-genesis-configmap
+            items:
+              - key: genesis.json
+                path: genesis.json
+        - name: static-nodes-file
+          configMap:
+            name: quorum-static-nodes-configmap
+            items:
+              - key: static-nodes.json
+                path: static-nodes.json
+        - name: permissions-nodes-config
+          configMap:
+            name: quorum-permissions-nodes-configmap
 EOF
-
-# kustomization.yaml 생성
-cat <<EOF >./kustomization.yaml
-apiVersion: kustomize.config.k8s.io/v1beta1
-kind: Kustomization
-resources:
-  - ./base/statefulsets/validator1-statefulset.yaml
-patches:
-  - path: statefulset.yaml
-EOF
-
-kustomize build --reorder=none >> ./build/statefulsets/validator$i-statefulset.yaml
 
 done
