@@ -1,5 +1,7 @@
 #!/bin/bash
 
+kubectl delete ns quorum
+
 bash ./quorum-genesis.sh
 bash ./namespace.sh
 bash ./configmap.sh

@@ -21,7 +21,13 @@ metadata:
   name: validator$i-keys-read-role
   namespace: quorum
 rules:
-  - resourceNames: ["quorum-validator$i-keys"]
+  - apiGroups: [""]
+    resources: ["secrets"]
+    resourceNames: ["quorum-validator$i-keys"]
+    verbs: ["get"]
+  - apiGroups: [""]
+    resources: ["services"]
+    verbs: ["get", "list"]
 
 ---
 apiVersion: rbac.authorization.k8s.io/v1
