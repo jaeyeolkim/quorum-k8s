@@ -6,13 +6,13 @@ for i in {1..5}
 do
     echo "======== build/statefulsets/validator$i-statefulset.yaml ========"
 
-cat <<EOF > statefulset.yaml
+# validator$i-statefulset.yaml 생성
+cat <<EOF >./build/statefulsets/validator$i-statefulset.yaml
 ---
 apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: validator$i-sa
-  namespace: quorum
 
 ---
 apiVersion: rbac.authorization.k8s.io/v1
@@ -21,13 +21,8 @@ metadata:
   name: validator$i-keys-read-role
   namespace: quorum
 rules:
-  - apiGroups: [""]
-    resources: ["secrets"]
-    resourceNames: ["quorum-validator$i-keys"]
-    verbs: ["get"]
-  - apiGroups: [""]
-    resources: ["services"]
-    verbs: ["get", "list"]
+  - resourceNames: ["quorum-validator$i-keys"]
+
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
@@ -43,6 +38,10 @@ subjects:
     name: validator$i-sa
     namespace: quorum
 
+EOF
+
+
+cat <<EOF > statefulset.yaml
 ---
 apiVersion: apps/v1
 kind: StatefulSet
@@ -135,6 +134,6 @@ patches:
   - path: statefulset.yaml
 EOF
 
-kustomize build > ./build/statefulsets/validator$i-statefulset.yaml
+kustomize build --reorder=none >> ./build/statefulsets/validator$i-statefulset.yaml
 
 done
