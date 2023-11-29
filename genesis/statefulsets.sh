@@ -1,13 +1,13 @@
 #!/bin/bash
 
-mkdir -p build/statefulsets
+mkdir -p ./statefulsets
 
 for i in {1..5}
 do
-    echo "======== build/statefulsets/validator$i-statefulset.yaml ========"
+    echo "======== ./statefulsets/validator$i-statefulset.yaml ========"
 
 # validator$i-statefulset.yaml 생성
-cat <<EOF >./build/statefulsets/validator$i-statefulset.yaml
+cat <<EOF >./statefulsets/validator$i-statefulset.yaml
 ---
 apiVersion: v1
 kind: ServiceAccount
@@ -41,7 +41,7 @@ subjects:
 EOF
 
 
-cat <<EOF >>./build/statefulsets/validator$i-statefulset.yaml
+cat <<EOF >>./statefulsets/validator$i-statefulset.yaml
 ---
 apiVersion: apps/v1
 kind: StatefulSet
@@ -80,7 +80,7 @@ spec:
 EOF
 
 if [ $i -gt 1 ];then
-cat <<EOF >>./build/statefulsets/validator$i-statefulset.yaml
+cat <<EOF >>./statefulsets/validator$i-statefulset.yaml
       initContainers:
         - name: init-bootnode
           image: curlimages/curl:7.79.1
@@ -94,14 +94,14 @@ EOF
 
 for (( k=2; k<=$i; k++ ));
 do
-cat <<EOF >>./build/statefulsets/validator$i-statefulset.yaml
+cat <<EOF >>./statefulsets/validator$i-statefulset.yaml
               curl -X GET --connect-timeout 30 --max-time 10 --retry 6 --retry-delay 0 --retry-max-time 300 http://quorum-validator$((k-1)).quorum.svc.cluster.local:8545
               sleep 30
 EOF
 done
 fi
 
-cat <<EOF >>./build/statefulsets/validator$i-statefulset.yaml
+cat <<EOF >>./statefulsets/validator$i-statefulset.yaml
       containers:
         - name: validator$i
           image: quorumengineering/quorum:latest

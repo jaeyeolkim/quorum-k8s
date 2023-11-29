@@ -1,14 +1,14 @@
 #!/bin/bash
 
-mkdir -p build/secrets
+mkdir -p ./secrets
 
 for i in {0..4}
 do
   num=$((i+1))
-  nodekey=$(cat build/statefulsets/artifacts/validator${i}/nodekey)
-  accountkey=$(cat build/statefulsets/artifacts/validator${i}/accountKeystore)
-  echo "======== build/secrets/validator${num}-keys-secret.yaml ========"
-cat <<EOF > ./build/secrets/validator${num}-keys-secret.yaml
+  nodekey=$(cat ./statefulsets/artifacts/validator${i}/nodekey)
+  accountkey=$(cat ./statefulsets/artifacts/validator${i}/accountKeystore)
+  echo "======== ./secrets/validator${num}-keys-secret.yaml ========"
+cat <<EOF > ./secrets/validator${num}-keys-secret.yaml
 apiVersion: v1
 kind: Secret
 metadata:

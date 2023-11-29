@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd ./build/statefulsets/artifacts/goQuorum
+cd ./artifacts/goQuorum
 
 # static-nodes.json, permissioned-nodes.json <HOST> replace
 for i in {1..5}
