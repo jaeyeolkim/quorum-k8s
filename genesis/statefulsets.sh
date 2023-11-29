@@ -13,6 +13,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: validator$i-sa
+  namespace: quorum
 
 ---
 apiVersion: rbac.authorization.k8s.io/v1
