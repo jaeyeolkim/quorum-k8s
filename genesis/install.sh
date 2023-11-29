@@ -9,10 +9,10 @@ yyyy=$(date '+%Y')
 mv artifacts/$yyyy-*/* artifacts
 rm -rf artifacts/$yyyy-*
 
-cd pwd
+cd $pwd
 sh ./namespace.sh
 sh ./configmap.sh
-cd pwd
+cd $pwd
 sh ./secrets.sh
 sh ./statefulsets.sh
 
