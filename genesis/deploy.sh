@@ -18,4 +18,4 @@ do
     kubectl apply -f ./statefulsets/$VALIDATOR_NAME-statefulset.yaml
 done
 
-cd pwd
+cd $pwd

@@ -23,4 +23,4 @@ bash ./secrets.sh
 bash ./services.sh
 bash ./statefulsets.sh
 
-cd pwd
+cd $pwd
