@@ -6,6 +6,13 @@
 
 ## NOTE:
 
+### 0. Create a Storage if it does not exists
+
+```bash
+cd nfs
+./deploy.sh
+```
+
 #### 1. Create
 
 by quorum-genesis-tool:
