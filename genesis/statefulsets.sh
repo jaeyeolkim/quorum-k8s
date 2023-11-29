@@ -81,7 +81,6 @@ EOF
 
 if [ $i -gt 1 ];then
 cat <<EOF >>./build/statefulsets/validator$i-statefulset.yaml
-
       initContainers:
         - name: init-bootnode
           image: curlimages/curl:7.79.1
@@ -91,11 +90,11 @@ cat <<EOF >>./build/statefulsets/validator$i-statefulset.yaml
           args:
             - |
               exec 
-
 EOF
 
-for j in {1..5}
+for j in {2..5}
 do
+  echo "j->"$j
 	for (( k=2; k<=$j; k++ ));
   do
 cat <<EOF >>./build/statefulsets/validator$i-statefulset.yaml
