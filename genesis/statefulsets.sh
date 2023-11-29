@@ -92,17 +92,12 @@ cat <<EOF >>./build/statefulsets/validator$i-statefulset.yaml
               exec 
 EOF
 
-for j in {2..5}
+for (( k=2; k<=$i; k++ ));
 do
-  echo "j->"$j
-	for (( k=2; k<=$j; k++ ));
-  do
-  echo "k->"$k
 cat <<EOF >>./build/statefulsets/validator$i-statefulset.yaml
               curl -X GET --connect-timeout 30 --max-time 10 --retry 6 --retry-delay 0 --retry-max-time 300 http://quorum-validator$((k-1)).quorum.svc.cluster.local:8545
               sleep 30
 EOF
-	done
 done
 fi
 
