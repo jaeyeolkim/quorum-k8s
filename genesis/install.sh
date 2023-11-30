@@ -21,7 +21,7 @@ read -r QUORUM_BLOCKPERIOD
 QUORUM_BLOCKPERIOD="${QUORUM_BLOCKPERIOD:=1}"
 
 echo "Please check the option you have chosen"
-echo "--consensus: $consensus"
+echo "--consensus: $QUORUM_CONSENSUS"
 echo "--validators: $QUORUM_VALIDATORS"
 echo "--chainID: $QUORUM_NETWORK_ID"
 echo "--blockperiod: $QUORUM_BLOCKPERIOD"
@@ -29,7 +29,7 @@ echo -n "Are you sure you want to create a quorum? [Y/n]"
 read -r quorum_create_confirm
 quorum_create_confirm="${quorum_create_confirm:=Y}"
 
-if [[ "$quorum_create_confirm" -ne "Y" ]]; then
+if [[ $quorum_create_confirm -ne Y ]]; then
     exit 1
 fi
 echo "🚀 Genesis Quorum..."
