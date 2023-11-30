@@ -1,5 +1,11 @@
 #!/bin/bash
 
+if [ "$QUORUM_CONSENSUS" == "ibft" ];then 
+  QUORUM_CONSENSUS_VALUE="istanbul"
+else
+  QUORUM_CONSENSUS_VALUE="$QUORUM_CONSENSUS"
+fi
+
 mkdir ../statefulsets
 
 for (( i=1; i<=$QUORUM_VALIDATORS; i++ ));
@@ -130,9 +136,9 @@ cat <<EOF >>../statefulsets/validator$i-statefulset.yaml
                 fieldRef:
                   fieldPath: metadata.name
             - name: QUORUM_NETWORK_ID
-              value: ${QUORUM_NETWORK_ID}
+              value: "${QUORUM_NETWORK_ID}"
             - name: QUORUM_CONSENSUS
-              value: ${QUORUM_CONSENSUS}
+              value: ${QUORUM_CONSENSUS_VALUE}
             - name: PRIVATE_CONFIG
               value: ignore
           volumeMounts:
