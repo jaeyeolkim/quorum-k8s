@@ -6,7 +6,11 @@ echo "================================"
 echo "Please select the options required for installation"
 echo -n "1. Consensus? [1.qbft(default), 2.ibft]: "
 read -r QUORUM_CONSENSUS
-QUORUM_CONSENSUS="${QUORUM_CONSENSUS:=qbft}"
+if [[ "$QUORUM_CONSENSUS" == "2" ]]; then
+    QUORUM_CONSENSUS="ibft"
+else 
+    QUORUM_CONSENSUS="qbft"
+fi
 
 echo -n "2. Validators? [4, 5(default), 6, 7]: "
 read -r QUORUM_VALIDATORS
