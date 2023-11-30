@@ -14,7 +14,7 @@ fi
 
 echo -n "2. Validators? [4, 5(default), 6, 7]: "
 read -r QUORUM_VALIDATORS
-QUORUM_VALIDATORS="${QUORUM_VALIDATORS:=4}"
+QUORUM_VALIDATORS="${QUORUM_VALIDATORS:=5}"
 
 echo -n "3. ChainID? [1337(default), ...]: "
 read -r QUORUM_NETWORK_ID
