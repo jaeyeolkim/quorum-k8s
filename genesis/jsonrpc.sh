@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "QUORUM_VALIDATORS=$QUORUM_VALIDATORS"
+echo "QUORUM_VALIDATORS=$1"
 for (( i=1; i<=$QUORUM_VALIDATORS; i++ ));
 do
   POD_NAME="validator${i}-0"

@@ -46,14 +46,19 @@ TODO dashboard
 #### 6. Verify that the nodes are communicating:
 
 ```bash
-./jsonrpc.sh
+./jsonrpc.sh [validators]
+
+# example
+./jsonrpc.sh 4
+```
 
 # which should return:
+
 The result confirms that the node running the JSON-RPC service has two peers:
 {
-  "jsonrpc" : "2.0",
-  "id" : 1,
-  "result" : "0x5"
+"jsonrpc" : "2.0",
+"id" : 1,
+"result" : "0x5"
 }
 
 ```
@@ -65,5 +70,9 @@ https://monitoring.ledgermaster.kr/
 #### 8. Delete
 
 ```
+
 ./remove.sh
+
+```
+
 ```
