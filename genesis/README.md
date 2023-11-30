@@ -32,7 +32,9 @@ eg: To alter the number of nodes on the network, alter the `replicas: 2` in the 
 #### 4. Deploy:
 
 ```bash
-./deploy.sh
+./deploy.sh [validators]
+# example
+./deploy.sh 4
 ```
 
 #### 5. In the dashboard, you will see each bootnode deployment & service, nodes & a node service, miner if enabled, secrets(opaque) and a configmap
