@@ -9,7 +9,7 @@ bash ./configmap.sh
 cd ..
 kubectl apply -f ./services/
 
-for i in {1..5}
+for (( i=1; i<=$QUORUM_VALIDATORS; i++ ));
 do
     sleep 30
     VALIDATOR_NAME="validator${i}"

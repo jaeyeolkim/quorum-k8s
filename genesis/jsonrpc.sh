@@ -1,6 +1,7 @@
 #!/bin/bash
 
-for i in {1..5}
+echo "QUORUM_VALIDATORS=$QUORUM_VALIDATORS"
+for (( i=1; i<=$QUORUM_VALIDATORS; i++ ));
 do
   POD_NAME="validator${i}-0"
   echo "======== $POD_NAME ========"

@@ -2,7 +2,8 @@
 
 mkdir ../secrets
 
-for i in {0..4}
+validators_index=$((QUORUM_VALIDATORS-1))
+for (( i=0; i<=$validators_index; i++ ));
 do
   num=$((i+1))
   nodekey=$(cat ../artifacts/validator${i}/nodekey)

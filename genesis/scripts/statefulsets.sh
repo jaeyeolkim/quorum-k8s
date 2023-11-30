@@ -1,9 +1,8 @@
 #!/bin/bash
 
 mkdir ../statefulsets
-QUORUM_NETWORK_ID=1337
 
-for i in {1..5}
+for (( i=1; i<=$QUORUM_VALIDATORS; i++ ));
 do
     echo "======== ../statefulsets/validator$i-statefulset.yaml ========"
 
@@ -131,9 +130,9 @@ cat <<EOF >>../statefulsets/validator$i-statefulset.yaml
                 fieldRef:
                   fieldPath: metadata.name
             - name: QUORUM_NETWORK_ID
-              value: "1337"
+              value: ${QUORUM_NETWORK_ID}
             - name: QUORUM_CONSENSUS
-              value: qbft
+              value: ${QUORUM_CONSENSUS}
             - name: PRIVATE_CONFIG
               value: ignore
           volumeMounts:

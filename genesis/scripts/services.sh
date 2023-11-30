@@ -2,7 +2,7 @@
 
 mkdir ../services
 
-for i in {1..5}
+for (( i=1; i<=$QUORUM_VALIDATORS; i++ ));
 do
     echo "======== ../services/validator$i-services.yaml ========"
 

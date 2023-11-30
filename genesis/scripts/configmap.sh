@@ -4,7 +4,7 @@ pwd=${PWD}
 cd ../artifacts/goQuorum
 
 # static-nodes.json, permissioned-nodes.json <HOST> replace
-for i in {1..5}
+for (( i=1; i<=$QUORUM_VALIDATORS; i++ ));
 do
   sed -i "$((i+1))s/<HOST>/validator$i-0.quorum-validator$i.quorum.svc.cluster.local/gi" static-nodes.json
   sed -i "$((i+1))s/<HOST>/validator$i-0.quorum-validator$i.quorum.svc.cluster.local/gi" permissioned-nodes.json
