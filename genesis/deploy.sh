@@ -1,6 +1,12 @@
 #!/bin/bash
 
-QUORUM_VALIDATORS="${$1:=5}"
+if [ $# -eq 0 ]
+  then
+    echo "No arguments supplied"
+    QUORUM_VALIDATORS=5
+else
+    QUORUM_VALIDATORS=$1
+fi
 pwd=${PWD}
 kubectl apply -f ./namespace/
 kubectl apply -f ./secrets/
