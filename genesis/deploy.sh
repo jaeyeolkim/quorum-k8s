@@ -1,5 +1,6 @@
 #!/bin/bash
 
+QUORUM_VALIDATORS="${$1:=5}"
 pwd=${PWD}
 kubectl apply -f ./namespace/
 kubectl apply -f ./secrets/

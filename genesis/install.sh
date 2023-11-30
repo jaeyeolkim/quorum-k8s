@@ -38,13 +38,8 @@ if [[ "$quorum_create_confirm" != "Y" ]]; then
     exit 1
 fi
 echo "🚀 Genesis Quorum..."
-export QUORUM_CONSENSUS
-export QUORUM_VALIDATORS
-export QUORUM_NETWORK_ID
-export QUORUM_BLOCKPERIOD
 
 pwd=${PWD}
-
 rm -rf artifacts/
 rm -rf namespace/
 rm -rf secrets/
@@ -68,4 +63,14 @@ cd scripts/
 . ./statefulsets.sh
 
 cd $pwd
-echo "✅ Installation successfully completed! Now run deploy!"
+echo "✅ Installation successfully completed! Now it's time to run deploy."
+echo -n "Would you like to go on? [Y/n]: "
+read -r quorum_deploy_confirm
+quorum_deploy_confirm="${quorum_deploy_confirm:="Y"}"
+if [[ "$quorum_deploy_confirm" != "Y" ]]; then
+    echo "💬 OK, Bye!"
+    exit 1
+fi
+echo "⏳ Run Quorum.."
+
+. ./deploy.sh $QUORUM_VALIDATORS
