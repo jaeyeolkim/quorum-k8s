@@ -4,7 +4,7 @@ echo "================================"
 echo "🎉 Welcome to the Quorum"
 echo "================================"
 echo "Please select the options required for installation"
-echo -n "1. Consensus? [1.qbft(default), 2.ibft]"
+echo -n "1. Consensus? [1.qbft(default), 2.ibft]: "
 read -r QUORUM_CONSENSUS
 QUORUM_CONSENSUS="${QUORUM_CONSENSUS:=qbft}"
 
@@ -30,6 +30,7 @@ read -r quorum_create_confirm
 quorum_create_confirm="${quorum_create_confirm:="Y"}"
 
 if [[ "$quorum_create_confirm" != "Y" ]]; then
+    echo "💬 Bye"
     exit 1
 fi
 echo "🚀 Genesis Quorum..."
