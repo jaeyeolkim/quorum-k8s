@@ -12,7 +12,7 @@ kubectl apply -f ./namespace/
 kubectl apply -f ./secrets/
 
 cd scripts/
-bash ./configmap.sh
+. ./configmap.sh
 cd ..
 kubectl apply -f ./services/
 
