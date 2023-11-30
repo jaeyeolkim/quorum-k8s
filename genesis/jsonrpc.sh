@@ -1,6 +1,7 @@
 #!/bin/bash
 
-QUORUM_VALIDATORS="${$1:=5}"
+PARAM=$1
+QUORUM_VALIDATORS="${PARAM:=5}"
 for (( i=1; i<=$QUORUM_VALIDATORS; i++ ));
 do
   POD_NAME="validator${i}-0"
