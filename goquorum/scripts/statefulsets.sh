@@ -63,16 +63,6 @@ metadata:
   namespace: quorum
   labels:
     app: validator$i
-EOF
-
-if [ $QUORUM_RPC_NODE -gt 1 ] && [ $i -lt 3 ];then
-# quorum-rpcnode 서비스와 멀티 매핑
-cat <<EOF >>../statefulsets/validator$i-statefulset.yaml
-    component: quorum-rpcnode
-EOF
-fi
-
-cat <<EOF >>../statefulsets/validator$i-statefulset.yaml
 spec:
   replicas: 1
   selector:
@@ -94,6 +84,16 @@ spec:
       labels:
         app: validator$i
         tier: backend
+EOF
+
+if [ $QUORUM_RPC_NODE -gt 1 ] && [ $i -lt 3 ];then
+# quorum-rpcnode 서비스와 멀티 매핑
+cat <<EOF >>../statefulsets/validator$i-statefulset.yaml
+        component: quorum-rpcnode
+EOF
+fi
+
+cat <<EOF >>../statefulsets/validator$i-statefulset.yaml
       annotations:
         prometheus.io/scrape: "true"
         prometheus.io/port: "9545"
