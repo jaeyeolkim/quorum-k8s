@@ -22,16 +22,16 @@ EOF
 
 if [ $QUORUM_RPC_NODE -gt 1 && $i -lt 3 ];then
 # quorum-rpcnode 서비스와 멀티 매핑
-cat <<EOF >>../statefulsets/validator$i-statefulset.yaml
+cat <<EOF >>../services/validator$i-services.yaml
     component: quorum-rpcnode
 EOF
 else
-cat <<EOF >>../statefulsets/validator$i-statefulset.yaml
+cat <<EOF >>../services/validator$i-services.yaml
     app: validator$i
 EOF
 fi
 
-cat <<EOF >>../statefulsets/validator$i-statefulset.yaml
+cat <<EOF >>../services/validator$i-services.yaml
   ports:
     - port: 30303
       targetPort: 30303
