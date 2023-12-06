@@ -24,6 +24,4 @@ do
     kubectl apply -f ./statefulsets/$VALIDATOR_NAME-statefulset.yaml
 done
 
-cd $pwd
-
 . ./set-rpcnode.sh
