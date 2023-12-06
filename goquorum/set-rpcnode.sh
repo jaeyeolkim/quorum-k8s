@@ -13,7 +13,7 @@ do
   rpcNodeAddress=\"$(echo $rpcNode | grep -Po '(?<="result":")[^"]+')\"
   kubectl exec -c validator$i $POD_NAME -- curl -s -H "Content-Type: application/json" -X POST --data '{"jsonrpc":"2.0","method":"istanbul_propose","params":['${rpcNodeAddress}',false],"id":1}' http://localhost:8545
 
-  if [ $QUORUM_RPC_NODE -gt 1 ] && [ $i -lt 3 ];then
+  if [ $QUORUM_RPC_NODE -gt 1 ];then
     rpcNode=$(kubectl exec -c validator2 validator2-0 -- curl -s -H "Content-Type: application/json" -X POST --data '{"jsonrpc":"2.0","method":"istanbul_nodeAddress","params":[],"id":1}' http://localhost:8545)
     rpcNodeAddress=\"$(echo $rpcNode | grep -Po '(?<="result":")[^"]+')\"
     kubectl exec -c validator$i $POD_NAME -- curl -s -H "Content-Type: application/json" -X POST --data '{"jsonrpc":"2.0","method":"istanbul_propose","params":['${rpcNodeAddress}',false],"id":1}' http://localhost:8545
