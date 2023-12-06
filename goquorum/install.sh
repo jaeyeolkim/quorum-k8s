@@ -14,7 +14,7 @@ fi
 
 echo -n "2. Validators? [4, 5, 6(default), 7]: "
 read -r QUORUM_VALIDATORS
-QUORUM_VALIDATORS="${QUORUM_VALIDATORS:=5}"
+QUORUM_VALIDATORS="${QUORUM_VALIDATORS:=6}"
 if [[ $QUORUM_VALIDATORS -gt 5 ]]; then
     QUORUM_RPC_NODE=2
 else 
