@@ -20,7 +20,7 @@ spec:
   selector:
 EOF
 
-if [ $QUORUM_RPC_NODE -gt 1 && $i -lt 3 ];then
+if [ $QUORUM_RPC_NODE -gt 1 ] && [ $i -lt 3 ];then
 # quorum-rpcnode 서비스와 멀티 매핑
 cat <<EOF >>../services/validator$i-services.yaml
     component: quorum-rpcnode
